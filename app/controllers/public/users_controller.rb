@@ -3,6 +3,10 @@ class Public::UsersController < ApplicationController
   def mypage
   end
   
+  def index
+   
+  end
+  
   def edit
   end
   

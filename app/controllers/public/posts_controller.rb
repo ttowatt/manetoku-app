@@ -4,6 +4,8 @@ class Public::PostsController < ApplicationController
   end
   
   def index
+    @post = Post.new
+    
   end
   
   def create
