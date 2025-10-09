@@ -1,0 +1,26 @@
+#カテゴリの予算登録フォームのエラーメッセージ
+ja:
+  activerecord:
+    attributes:
+      category:
+        category_name: "カテゴリ名"
+        budget: "予算"
+      expense:
+        amount: "支出金額"
+        expense_date: "支出日"
+
+    errors:
+      models:
+        category:
+          attributes:
+            category_name:
+              blank: "を入力してください"
+            budget:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
+      models:
+        expense:
+          attributes:
+            amount:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
