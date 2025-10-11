@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <p>アプリ説明文</p>
+  </div>
+  <div class="row">
+    <% if user_signed_in? %>
+      <%= link_to "はじめよう！", root_path, class: "bth" %>
+    <% else %>
+      <%= link_to "新規登録", new_user_session_path, class: "bth" %>
+      <%= link_to "ログイン", new_user_registration_path, class: "bth" %>
+    <% end %>
+  </div>
+</div>
+
