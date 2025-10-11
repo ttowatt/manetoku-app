@@ -21,5 +21,6 @@ class AddNotNullConstraints < ActiveRecord::Migration[6.1]
 
     change_column_null :expenses, :amount, false
     change_column_null :expenses, :expense_date, false
+
   end
 end
