@@ -20,6 +20,7 @@ class User < ApplicationRecord
          has_many :reverse_relationships, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
          has_many :followers, through: :reverse_relationships, source: :follower
 
+         validates :password, presence: true, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}\z/ }, if: :password_required?
          validates :last_name, :first_name, presence: true, format: {with: /\A[\p{Han}　]+\z/}
          validates :last_name_kana, :first_name_kana, presence: true, format: {with: /\A[\p{Katakana}ー　]+\z/}
          validates :username, presence: true, uniqueness: {case_sensitive: false}
