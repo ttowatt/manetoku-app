@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  has_many :like
+  has_many :likes
   belongs_to :user
   belongs_to :post
 
