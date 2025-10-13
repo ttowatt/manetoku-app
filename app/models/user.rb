@@ -24,7 +24,6 @@ class User < ApplicationRecord
          validates :last_name, :first_name, presence: true, format: {with: /\A[\p{Han}　]+\z/}
          validates :last_name_kana, :first_name_kana, presence: true, format: {with: /\A[\p{Katakana}ー　]+\z/}
          validates :username, presence: true, uniqueness: {case_sensitive: false}
-         validates :introduction, presence: true
          validates :phone_number, presence: true, format: {with: /\A\d{10,11}\z/}
 
   def self.ransackable_attributes(auth_object = nil)
