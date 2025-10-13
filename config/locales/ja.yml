@@ -67,8 +67,6 @@ ja:
             username:
               blank: "を入力してください"
               taken: "はすでに存在します"
-            introduction:
-              blank: "を入力してください"
             phone_number:
               blank: "を入力してください"
               invalid: "はハイフンなしの10~11桁で入力してください"
