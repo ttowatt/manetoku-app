@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   namespace :public do
     get 'search', to: 'searches#search', as: 'search'
     get "mypage", to: "users#mypage", as: "mypage"
+    get 'users/withdraw', to: 'users#withdraw_confirm', as: 'withdraw_confirm'
+    delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'
     resources :users, only: [:index, :edit, :show, :update, :destroy]
     resources :posts, :reviews, only: [:new, :index, :show, :create, :destroy]
     resources :comments, :likes, only: [:index, :create, :destroy]

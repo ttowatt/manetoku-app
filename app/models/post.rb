@@ -3,10 +3,10 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
-  has_many :commnet
-  has_many :review
-  has_many :like
-  has_many :notification
+  has_many :commnets
+  has_many :reviews
+  has_many :likes
+  has_many :notifications
 
   validates :title, :body, presence: true
 
