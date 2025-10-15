@@ -1,0 +1,7 @@
+<%= render "public/header2" %>
+
+<h2>本当に退会しますか？</h2>
+<p>退会すると、これまでの投稿などのデータが全て削除されます。</p>
+
+<%= link_to "退会する", public_withdraw_path, method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+<%= link_to "キャンセル", public_mypage_path(current_user), class: "btn btn-secondary" %>
