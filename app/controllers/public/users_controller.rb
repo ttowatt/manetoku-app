@@ -5,7 +5,6 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @posts = @user.posts
-    @post = Post.new
   end
   
   def index
@@ -34,6 +33,7 @@ class Public::UsersController < ApplicationController
   end
 
   def withdraw_confirm
+    @user = current_user
   end
 
   private
