@@ -1,1 +1,37 @@
 <%= render "public/header2" %>
+
+<%= form_with model: @post, url: public_posts_path, local: true do |f| %>
+
+  <% if @post.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@post.errors.count, "件のエラー") %>があります：</h4>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <%= image_tag @post.get_image, size:'100x100' %>
+    <div class="col">
+      <%= f.label :image, "投稿画像" %><br>
+      <%= f.file_field :image, accept: "image/*" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title, placeholder: "タイトル" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %><br>
+    <%= f.text_area :body, placeholder: "本文" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "新規投稿" %>
+  </div>
+<% end %>

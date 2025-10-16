@@ -10,6 +10,14 @@ class Post < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  def get_image
+    if image.attached?
+      image
+    else
+      'no_image.jpg'
+    end
+  end
+
    # Ransackで検索可能なカラムを指定
    def self.ransackable_attributes(auth_object = nil)
     %w[title body]  # 検索したいカラムだけ
