@@ -39,4 +39,3 @@ Post.find_or_create_by!(title: "節約術") do |post|
 end
 
 puts "seedの実行が完了しました"
-
