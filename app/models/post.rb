@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  has_one_attached :image
+  has_one_attached :post_image
 
   belongs_to :user
 
@@ -10,9 +10,9 @@ class Post < ApplicationRecord
 
   validates :title, :body, presence: true
 
-  def get_image
-    if image.attached?
-      image
+  def get_post_image
+    if post_image.attached?
+      post_image
     else
       'no_image.jpg'
     end
