@@ -1,34 +1,29 @@
-<%= render "public/header2" %>
+<h2>新規登録ページ</h2>
 
-<%= form_with model: @user, url: public_user_path(@user), method: :patch, local: true, html: { multipart: true } do |f| %>
-
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(@user.errors.count, "件のエラー") %>があります：</h4>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="row">
-    <%= image_tag @user.get_profile_image, size:'100x100' %>
-    <div class="col">
-      <%= f.label :profile_image, "プロフィール画像を変更" %><br>
-      <%= f.file_field :profile_image, accept: "image/*" %>
-    </div>
-  </div>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class= "field">
     <%= f.label :phone_number, "電話番号" %><br>
     <%= f.text_field :phone_number, placeholder: "ハイフンなし" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> 文字以上の英数字)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "パスワード確認" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class= "field">
@@ -62,8 +57,8 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "更新" %>
+    <%= f.submit "新規登録" %>
   </div>
-
-  <%= link_to "退会する", public_withdraw_confirm_path, class: "btn btn-danger" %>
 <% end %>
+
+<%= render "devise/shared/links" %>

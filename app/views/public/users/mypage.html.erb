@@ -1,1 +1,81 @@
 <%= render "public/header2" %>
+<div class="container">
+  <div class="row">
+    <%= image_tag @user.get_profile_image, size:'100x100' %>
+  </div>
+  <div class="row">
+    <%= @user.username %>
+  </div>
+
+  <div class="row">
+    <%= link_to "編集", edit_public_user_path(current_user), class:"btn btn-primary" %>
+  </div>
+
+  <div class="row">
+    <%= link_to "投稿", new_public_post_path, class:"btn btn-primary" %>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <p>投稿数</p>
+      <p><%= @user.posts.count %></p>
+    </div>
+    <div class="col-4">
+      <p>フォロー数</p>
+      <p><%= @user.followings.count %></p>
+    </div>
+    <div class="col-4">
+      <p>フォロワー数</p>
+      <p><%= @user.followers.count %></p>
+    </div>
+  </div>
+  <div class="row tabs">
+    <div class="col-4">
+      <button class="btn btn-outline-primary mx-1" data-tab="posts">投稿</button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-outline-primary mx-1" data-tab="likes">いいね</button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-outline-primary mx-1" data-tab="reviews">評価</button>
+    </div>
+  </div>
+  <div id="posts" class="tab-content">
+    <div class="row">
+      <% @user.posts.each do |post| %>
+        <div class="card">
+          <!-- 投稿画像 -->
+          <% if post.image.attached? %>
+            <%= image_tag post.image, size: "100x100" %>
+          <% else %>
+            <img src="no_image.jpg">
+          <% end %>
+          <div class="card-body">
+            <!-- カテゴリ -->
+            <p>カテゴリ: <%= post.category.name %></p>
+            <!-- 投稿タイトル -->
+            <h3 class="card-title"><%= post.title %></h3>
+            <!-- 投稿本文 -->
+            <p class="card-title"><%= truncate(post.body, length: 20) %></p>
+            <!-- いいね -->
+            <p><%= post.likes.count %></p>
+            <!-- コメント一覧へのリンク -->
+            <p><%= link_to '<i class="fa-light fa-comment"></i>', public_post_comments_path(post) %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="likes" class="tab-content" style="display:none;">
+      <% @user.likes.each do |like| %>
+        <p><%= like.post.title %></p>
+      <% end %>
+    </div>
+
+    <div id="reviews" class="tab-content" style="display:none;">
+      <% @user.reviews.each do |review| %>
+        <p><%= review.title %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
