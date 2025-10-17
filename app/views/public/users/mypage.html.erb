@@ -6,6 +6,15 @@
   <div class="row">
     <%= @user.username %>
   </div>
+
+  <div class="row">
+    <%= link_to "編集", edit_public_user_path(current_user), class:"btn btn-primary" %>
+  </div>
+
+  <div class="row">
+    <%= link_to "投稿", new_public_post_path, class:"btn btn-primary" %>
+  </div>
+
   <div class="row">
     <div class="col-4">
       <p>投稿数</p>
