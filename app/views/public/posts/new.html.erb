@@ -14,10 +14,10 @@
   <% end %>
 
   <div class="row">
-    <%= image_tag @post.get_image, size:'100x100' %>
+    <%= image_tag @post.get_post_image, size:'100x100' %>
     <div class="col">
-      <%= f.label :image, "投稿画像" %><br>
-      <%= f.file_field :image, accept: "image/*" %>
+      <%= f.label :post_image, "投稿画像" %><br>
+      <%= f.file_field :post_image, accept: "image/*" %>
     </div>
   </div>
 
