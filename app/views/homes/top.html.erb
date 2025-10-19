@@ -1,30 +1,37 @@
 <%= render "public/header1" %>
-
+<%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
 <div class="container">
   <!-- 年月表示 -->
   <div class="row">
     <%= @now.strftime("%Y年%-m月") %>
   </div>
 
-  <div class="row">
-    <%= form_with model: @category, url: public_categories_path, local: true do |f| %>
+  <div class="row d-flex align-content-center flex-wrap">
+    <% @categories.each do |category| %>
       <div class="col-4">
-        <%= f.label :name, "カテゴリ名" %><br>
-        <%= f.text_field :name %><br>
+        <div>
+          <%= link_to category.category_name, public_category_path(category), class: "btn btn-outline-primary" %><br>
+          <%= category.budget - category.histories.sum(:amount) %> 円（残高）
+        </div>
+        <%= form_with model: @category, url: public_categories_path, local: true do |f| %>
+          <div id="expenses">
+            <%= f.fields_for :expenses do |e| %>
+              <div class="expense-fields" style="margin-bottom: 10px;">
+                <%= e.label :expense_date, "支出日" %>
+                <%= e.date_field :expense_date, autocomplete: "off" %>
 
-        <%= f.label :budget, "予算/残高" %><br>
-        <%= f.number_field :budget, min: 0 %> 円<br><br>
-
-        <%= f.label :expenses, "支出" %><br>
-        <div id="expenses">
-          <%= f.fields_for :expenses do |e| %>
-            <div class="expense-fields" style="margin-bottom: 10px;">
-              <%= e.label :expense_date, "支出日" %>
-              <%= e.date_field :expense_date %>
-
-              <%= e.label :amount, "金額" %>
-              <%= e.number_field :amount, min: 0 %> 円
-              <%= f.submit "登録", class: "btn btn-primary" %>
+                <%= e.label :amount, "金額" %>
+                <%= e.text_field :amount, inputmode: "numeric", pattern: "[0-9]*", autocomplete: "off" %> 円<br>
+                <%= f.submit "登録", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <h6>直近の支出</h6>
+          <% category.histories.order(expense_date: :desc).limit(3).each do |history| %>
+            <div>
+              <%= history.expense_date.strftime("%Y-%m-%d") %> : <%= history.amount %> 円
             </div>
           <% end %>
         </div>
