@@ -6,7 +6,9 @@ class HomesController < ApplicationController
 
   def top
     @now = Time.current
+    @categories = Category.all
     @category = Category.new
+    @categories = current_user.categories.includes(:histories)
     @category.expenses.build
   end
 
@@ -15,13 +17,13 @@ class HomesController < ApplicationController
     if @category.save
       redirect_to root_path, notice: "登録が完了しました"
     else
-      render :top
+      render "top"
     end
   end
 
   def update
     if @category.update(category_params)
-      redirect_to categories_path, notice: "更新しました。"
+      redirect_to root_path, notice: "更新しました。"
     else
       render :edit
     end
@@ -29,12 +31,12 @@ class HomesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to categories_path, notice: "削除しました。"
+    redirect_to root_path, notice: "削除しました。"
   end
 
   private
   
-  def post_params
-    params.require(:post).permit(:category_name, :budget, :amount, :expense_date)
+  def expense_params
+    params.require(:expense).permit(:amount, :expense_date)
   end
 end
