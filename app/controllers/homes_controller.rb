@@ -5,10 +5,8 @@ class HomesController < ApplicationController
   end
 
   def top
-    @now = Time.current
     @categories = Category.all
     @category = Category.new
-    @categories = current_user.categories.includes(:histories)
     @category.expenses.build
   end
 
@@ -25,7 +23,7 @@ class HomesController < ApplicationController
     if @category.update(category_params)
       redirect_to root_path, notice: "更新しました。"
     else
-      render :edit
+      render :top
     end
   end
 

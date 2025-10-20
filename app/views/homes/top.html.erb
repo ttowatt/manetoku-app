@@ -1,19 +1,25 @@
 <%= render "public/header1" %>
-<%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
 <div class="container">
-  <!-- 年月表示 -->
-  <div class="row">
-    <%= @now.strftime("%Y年%-m月") %>
-  </div>
+
+<!--カテゴリ登録-->
+<%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
+<!--期間登録-->
+<%= form_with model: @new_period, url: public_periods_path, local: true do |f| %>
+  <%= f.label :start_date, "開始日" %>
+  <%= f.date_field :start_date %>
+  <%= f.label :end_date %>
+  <%= f.date_field :end_date %>
+  <%= f.submit "登録", class: "btn btn-primary" %>
+<% end %>
 
   <div class="row d-flex align-content-center flex-wrap">
     <% @categories.each do |category| %>
       <div class="col-4">
         <div>
           <%= link_to category.category_name, public_category_path(category), class: "btn btn-outline-primary" %><br>
-          <%= category.budget - category.histories.sum(:amount) %> 円（残高）
+          <%= category.budget - category.expenses.sum(:amount) %> 円（残高）
         </div>
-        <%= form_with model: @category, url: public_categories_path, local: true do |f| %>
+        <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
           <div id="expenses">
             <%= f.fields_for :expenses do |e| %>
               <div class="expense-fields" style="margin-bottom: 10px;">
@@ -27,14 +33,6 @@
             <% end %>
           </div>
         <% end %>
-        <div>
-          <h6>直近の支出</h6>
-          <% category.histories.order(expense_date: :desc).limit(3).each do |history| %>
-            <div>
-              <%= history.expense_date.strftime("%Y-%m-%d") %> : <%= history.amount %> 円
-            </div>
-          <% end %>
-        </div>
       </div>
     <% end %>
   </div>

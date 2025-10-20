@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_10_20_070200) do
+ActiveRecord::Schema.define(version: 2025_10_20_120134) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -93,15 +93,6 @@ ActiveRecord::Schema.define(version: 2025_10_20_070200) do
     t.integer "followed_id"
     t.index ["followed_id"], name: "index_follows_on_followed_id"
     t.index ["follower_id"], name: "index_follows_on_follower_id"
-  end
-
-  create_table "histories", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "period_id"
-    t.index ["period_id"], name: "index_histories_on_period_id"
-    t.index ["user_id"], name: "index_histories_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -189,8 +180,6 @@ ActiveRecord::Schema.define(version: 2025_10_20_070200) do
   add_foreign_key "expenses", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
-  add_foreign_key "histories", "periods"
-  add_foreign_key "histories", "users"
   add_foreign_key "likes", "comments"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
