@@ -28,6 +28,9 @@ ja:
       post:
         title: "タイトル"
         body: "本文"
+      period:
+        start_date: "開始日"
+        end_date: "終了日"
 
     errors:
       models:
@@ -93,4 +96,12 @@ ja:
             title:
               blank: "を入力してください"
             body:
+              blank: "を入力してください"
+
+        #期間
+        period:
+          attributes:
+            start_date:
+              blank: "を入力してください"
+            end_date:
               blank: "を入力してください"

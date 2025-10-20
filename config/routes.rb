@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index, :update, :destroy]
     resources :categories, only: [:new, :create, :update, :destroy]
     resources :expenses, only: [:create, :update, :destroy]
-    resources :histories, only: [:index, :destroy]
+    resources :periods, only: [:index, :create, :update, :destroy]
   end
 
   namespace :admin do
