@@ -1,0 +1,16 @@
+<%= render "public/header1" %>
+<h1>履歴</h1>
+<% @periods.each do |period| %>
+  <div class="period">
+    <h3><%= period.start_date %> 〜 <%= period.end_date %></h3>
+    <% if period.categories.any? %>
+      <ul>
+        <% period.categories.each do |category| %>
+          <li>
+            <%= link_to category.category_name, public_period_path(period), class:"btn btn-primary" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
