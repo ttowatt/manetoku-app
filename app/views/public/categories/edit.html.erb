@@ -1,0 +1,16 @@
+<%= render "public/header1" %>
+<div class="container">
+  <%= form_with model: @category, url: public_category_path(@category), local: true do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= f.label :category_name, "カテゴリ名" %><br>
+        <%= f.text_field :category_name, autocomplete: "off" %><br>
+
+        <%= f.label :budget, "予算/残高" %><br>
+        <%= f.text_field :budget, inputmode: "numeric", pattern: "[0-9]*", autocomplete: "off" %> 円<br>
+        <%= f.submit "更新", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>

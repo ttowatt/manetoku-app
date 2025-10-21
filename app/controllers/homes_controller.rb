@@ -7,34 +7,9 @@ class HomesController < ApplicationController
   def top
     @categories = Category.all
     @category = Category.new
-    @category.expenses.build
-  end
-
-  def create
-    @category = Category.new(category_params)
-    if @category.save
-      redirect_to root_path, notice: "登録が完了しました"
-    else
-      render "top"
-    end
-  end
-
-  def update
-    if @category.update(category_params)
-      redirect_to root_path, notice: "更新しました。"
-    else
-      render :top
-    end
-  end
-
-  def destroy
-    @category.destroy
-    redirect_to root_path, notice: "削除しました。"
-  end
-
-  private
-  
-  def expense_params
-    params.require(:expense).permit(:amount, :expense_date)
+    @category.expenses.build #各カテゴリに紐づく支出のオブジェクトを作成
+    @latest_period = current_user.periods.order(id: :desc).first # 最新登録の期間の取得
+    @period = Period.new
+    @expense = Expense.new
   end
 end

@@ -1,37 +1,45 @@
 <%= render "public/header1" %>
 <div class="container">
 
-<!--カテゴリ登録-->
-<%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
-<!--期間登録-->
-<%= form_with model: @new_period, url: public_periods_path, local: true do |f| %>
-  <%= f.label :start_date, "開始日" %>
-  <%= f.date_field :start_date %>
-  <%= f.label :end_date %>
-  <%= f.date_field :end_date %>
-  <%= f.submit "登録", class: "btn btn-primary" %>
-<% end %>
+  <!--カテゴリ登録-->
+  <%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
+
+  <!--期間登録-->
+  <%= form_with model: @period, url: public_periods_path, local: true do |f| %>
+    <%= f.label :start_date, "開始日" %>
+    <%= f.date_field :start_date %>
+    <%= f.label :end_date, "終了日" %>
+    <%= f.date_field :end_date %>
+    <%= f.submit "登録", class: "btn btn-primary" %>
+  <% end %>
+
+  <% if @latest_period.present? %>
+    <div>
+      <%= @latest_period.start_date %> ~ <%= @latest_period.end_date %>
+      <%= link_to "編集", edit_public_period_path(@latest_period) %>
+    </div>
+  <% end %>
 
   <div class="row d-flex align-content-center flex-wrap">
     <% @categories.each do |category| %>
       <div class="col-4">
         <div>
-          <%= link_to category.category_name, public_category_path(category), class: "btn btn-outline-primary" %><br>
-          <%= category.budget - category.expenses.sum(:amount) %> 円（残高）
+          <%= category.category_name %><br>
+          <%= category.budget - category.expenses.where(period_id: @latest_period.id).sum(:amount) %> 円
+          <%= link_to "編集", edit_public_category_path(category) %>
         </div>
-        <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
-          <div id="expenses">
-            <%= f.fields_for :expenses do |e| %>
-              <div class="expense-fields" style="margin-bottom: 10px;">
-                <%= e.label :expense_date, "支出日" %>
-                <%= e.date_field :expense_date, autocomplete: "off" %>
 
-                <%= e.label :amount, "金額" %>
-                <%= e.text_field :amount, inputmode: "numeric", pattern: "[0-9]*", autocomplete: "off" %> 円<br>
-                <%= f.submit "登録", class: "btn btn-primary" %>
-              </div>
-            <% end %>
-          </div>
+        <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
+          <!-- このカテゴリに紐づける -->
+          <%= f.hidden_field :category_id, value: category.id %>
+
+            <%= f.label :expense_date, "支出日" %>
+            <%= f.date_field :expense_date %><br>
+
+            <%= f.label :amount, "金額" %>
+            <%= f.text_field :amount, inputmode: "numeric", pattern: "[0-9]*" %> 円<br>
+
+            <%= f.submit "登録", class: "btn btn-primary mt-2" %>
         <% end %>
       </div>
     <% end %>
