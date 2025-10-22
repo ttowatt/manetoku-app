@@ -3,15 +3,6 @@ class Public::ExpensesController < ApplicationController
   def create
     @expense = current_user.expenses.new(expense_params)
 
-     # 最新の期間を取得
-    latest_period = current_user.periods.order(id: :desc).first
-    unless latest_period
-      flash[:alert] = "期間が登録されていません。先に期間を登録してください。"
-      return redirect_to root_path
-    end
-
-    @expense.period = latest_period
-
     if @expense.save
       redirect_to root_path, notice: "登録が完了しました"
     else
@@ -34,6 +25,6 @@ class Public::ExpensesController < ApplicationController
   end
   
   def expense_params
-    params.require(:expense).permit(:amount, :expense_date, :category_id)
+    params.require(:expense).permit(:amount, :expense_date, :category_id, :period_id)
   end
 end

@@ -5,11 +5,16 @@ class HomesController < ApplicationController
   end
 
   def top
-    @categories = Category.all
-    @category = Category.new
-    @category.expenses.build #各カテゴリに紐づく支出のオブジェクトを作成
     @latest_period = current_user.periods.order(id: :desc).first # 最新登録の期間の取得
     @period = Period.new
+
+    #表示している期間に紐づいているカテゴリだけを取得
+    @categories = @latest_period ? current_user.categories.where(period: @latest_period) : []
+    @category = Category.new
+
     @expense = Expense.new
+    @categories.each do |category|
+      category.expenses.build
+    end 
   end
 end

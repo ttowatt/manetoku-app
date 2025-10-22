@@ -5,14 +5,10 @@ class Public::CategoriesController < ApplicationController
     @periods = current_user.periods
   end
   
-  def create
+  def create   
+    latest_period = current_user.periods.order(id: :desc).first
     @category = current_user.categories.new(category_params)
-     
-    latest_period = current_user.periods.last # 最新の期間を1つだけ取り出す（なければ nil になる）
-    
-    if latest_period # もし期間があれば、その期間をカテゴリに結びつける
-      @category.period = latest_period
-    end
+    @category.period = latest_period
 
     if @category.save
       flash[:notice]= "カテゴリの追加が成功しました"
@@ -37,9 +33,9 @@ class Public::CategoriesController < ApplicationController
   end
   
   def destroy
-    category = Category.find(params[:id])
-    category.destroy
-    flash[:notice]= "カテゴリの削除が成功しました"
+    @category = current_user.categories.find(params[:id])
+    @category.destroy
+    flash[:notice] = "カテゴリの削除が成功しました"
     redirect_to root_path
   end
   
