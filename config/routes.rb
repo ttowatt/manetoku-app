@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :follows, only: [:create, :destroy]
     resources :notifications, only: [:index, :update, :destroy]
     resources :categories, only: [:new, :edit, :create, :update, :destroy]
-    resources :expenses, only: [:create, :update, :destroy]
+    resources :expenses, only: [:edit, :create, :update, :destroy]
     resources :periods, only: [:index, :show, :edit, :create, :update, :destroy]
   end
 

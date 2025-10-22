@@ -1,2 +1,41 @@
 <%= render "public/header1" %>
-<h1>履歴詳細</h1>
+<div class="container">
+  <h1>履歴詳細</h1>
+  <% @categories.each do |category| %>
+    <div class="row d-flex align-content-center flex-wrap">
+      <div class="col-4 card">
+        <h4><%= category.category_name %>（予算: <%= category.budget %>円）</h4>
+        <p>残り: <%= category.budget - category.expenses.sum(:amount) %> 円</p>
+
+        <% if category.expenses.any? %>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>金額</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% category.expenses.each do |expense| %>
+                <tr>
+                  <td><%= expense.expense_date.strftime("%Y-%m-%d") %></td>
+                  <td><%= expense.amount %>円</td>
+                  <td>
+                    <%= link_to "編集", edit_public_expense_path(expense) %>
+                  </td>
+                  <td>
+                    <%= link_to "削除", public_expense_path(expense), method: :delete,
+                                    data: {confirm: "本当に削除しますか？"},
+                                    class:"btn btn-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="text-muted">支出はまだありません。</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

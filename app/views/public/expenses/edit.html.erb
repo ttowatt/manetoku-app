@@ -1,0 +1,15 @@
+<%= render "public/header1" %>
+<div class="container">
+  <%= form_with model: @expense, url: public_expense_path(@expense), local: true do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= f.label :expense_date, "支出日" %>
+        <%= f.date_field :expense_date %><br>
+        <%= f.label :amount, "金額" %>
+        <%= f.text_field :amount, inputmode: "numeric", pattern: "[0-9]*" %> 円<br>
+        <%= f.submit "更新", class: "btn btn-primary mt-2" %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to "戻る", public_period_path(@expense.period_id), class: "btn btn-secondary" %>
+</div>
