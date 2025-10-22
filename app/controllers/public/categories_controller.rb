@@ -26,7 +26,7 @@ class Public::CategoriesController < ApplicationController
   def update
     @category = current_user.categories.find(params[:id])
     if @category.update(category_params)
-      redirect_to root_path, notice: "カテゴリ名を更新しました"
+      redirect_to root_path, notice: "カテゴリを更新しました"
     else
       render "edit"
     end

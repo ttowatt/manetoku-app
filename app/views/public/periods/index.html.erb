@@ -8,6 +8,10 @@
         <% period.categories.each do |category| %>
           <li>
             <%= link_to category.category_name, public_period_path(period), class:"btn btn-primary" %>
+            <%= link_to "編集", edit_public_category_path(category) %>
+            <%= link_to "削除", public_category_path(category), method: :delete,
+                            data: {confirm: "本当に削除しますか？"},
+                            class:"btn btn-danger" %>
           </li>
         <% end %>
       </ul>
