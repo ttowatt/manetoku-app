@@ -1,6 +1,17 @@
 <%= render "public/header1" %>
 <div class="container">
   <%= form_with model: @category, url: public_category_path(@category), local: true do |f| %>
+    <% if @category.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@category.errors.count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% @category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="col">
         <%= f.label :category_name, "カテゴリ名" %><br>
