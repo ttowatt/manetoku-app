@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc)
   end
   
   def create
@@ -14,7 +14,6 @@ class Public::PostsController < ApplicationController
       flash[:notice]= "投稿が成功しました"
       redirect_to public_posts_path
     else
-      @posts = Post.all
       render 'new'
     end
   end
@@ -33,6 +32,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :image)
+    params.require(:post).permit(:category, :title, :body, :image)
   end
 end

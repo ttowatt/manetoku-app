@@ -26,6 +26,7 @@ ja:
         body: "コメント"
       #投稿
       post:
+        category: "カテゴリ"
         title: "タイトル"
         body: "本文"
       period:
@@ -93,6 +94,8 @@ ja:
         #投稿
         post:
           attributes:
+            category:
+              blank: "を入力してください"
             title:
               blank: "を入力してください"
             body:
