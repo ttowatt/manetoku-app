@@ -1,0 +1,21 @@
+<%= render "admins/header" %>
+<h2>コメント一覧</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>コメント</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.body %></td>
+        <td>
+          <%= link_to "削除", admins_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

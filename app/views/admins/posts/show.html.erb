@@ -1,0 +1,19 @@
+<%= render "admins/header" %>
+  <div class="card w-75">
+    <div class="card-header d-flex">
+      <%= link_to @post.user.username, admins_user_path(@post) %>
+      <%= @post.category %>
+      <%= link_to "削除", admins_post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    </div>
+    <div class="card-img">
+      <% if @post.post_image.attached? %>
+        <%= image_tag @post.post_image, size: "300x300" %>
+      <% else %>
+        <%= image_tag "no_image.jpg", size: "300x300" %>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= @post.title %></h5>
+      <p class="card-text"><%= @post.body %></p>
+    </div>
+  </div>

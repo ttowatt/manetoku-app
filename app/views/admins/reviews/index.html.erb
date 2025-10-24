@@ -1,0 +1,22 @@
+<%= render "admins/header" %>
+<h2>評価一覧</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>評価</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= review.body %></td>
+        <td>
+          <%= link_to "詳細", admins_review_path(review) %>
+          <%= link_to "削除", admins_review_path(review), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
