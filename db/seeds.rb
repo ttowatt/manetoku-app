@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#1stデプロイのテスト内容
 puts "seedの実行を開始"
 
 Admin.find_or_create_by!(email: 'admin@example.com') do |admin|
@@ -36,6 +37,9 @@ post = Post.find_or_create_by!(title: "一押しの節約術", user_id: messhi.i
     filename: "sample-post3.jpg"
   )
 end
+
+
+puts "seedの実行が完了しました"
 
 Comment.find_or_create_by!(
   body: "とても参考になりました。",

@@ -14,13 +14,22 @@
 
       <ul class="navbar-nav d-flex flex-row align-item-center">
         <li class="nav-item">
-          <%= link_to "会員一覧", public_users_path, class: "nav-link" %>
+          <%= link_to "top", admins_root_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "投稿一覧", public_posts_path, class: "nav-link" %>
+          <%= link_to "会員一覧", admins_users_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
+          <%= link_to "投稿一覧", admins_posts_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "コメント一覧", admins_comments_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "評価一覧", admins_reviews_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %>
         </li>
       </ul>
   </nav>

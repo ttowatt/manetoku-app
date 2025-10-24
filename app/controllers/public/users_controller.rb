@@ -1,11 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update]
-
-  def mypage
-    @user = current_user
-    @posts = @user.posts
-  end
   
   def index
    @users = User.all
@@ -15,11 +10,13 @@ class Public::UsersController < ApplicationController
   end
   
   def show
+    @user = current_user
+    @posts = @user.posts
   end
   
   def update
     if @user.update(user_params)
-      redirect_to public_mypage_path(@user), notice: "プロフィールの更新に成功しました"
+      redirect_to public_user_path(@user), notice: "プロフィールの更新に成功しました"
     else
       render "edit"
     end
@@ -43,7 +40,7 @@ class Public::UsersController < ApplicationController
   end
 
   def ensure_correct_user
-    redirect_to public_mypage_path(current_user) unless @user == current_user
+    redirect_to public_user_path(current_user) unless @user == current_user
   end
 
   def user_params
