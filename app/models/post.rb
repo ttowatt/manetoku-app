@@ -3,12 +3,12 @@ class Post < ApplicationRecord
 
   belongs_to :user
 
-  has_many :commnets
+  has_many :comments
   has_many :reviews
   has_many :likes
   has_many :notifications
 
-  validates :title, :body, presence: true
+  validates :title, :body, :category, presence: true
 
   def get_post_image
     if post_image.attached?

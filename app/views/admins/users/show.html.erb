@@ -1,0 +1,30 @@
+<%= render "admins/header" %>
+<div class="card w-75">
+  <div class="card-header">
+    <%= @user.username %>
+  </div>
+  <div class="card-img">
+    <% if @user.profile_image.attached? %>
+      <%= image_tag @user.profile_image, size: "300x300" %>
+    <% else %>
+      <%= image_tag "no_image.jpg", size: "300x300" %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">自己紹介</h5>
+    <p class="card-text">
+      <%= @user.introduction %>
+    </p>
+  <div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <%= "#{@user.last_name} #{@user.first_name}（#{@user.last_name_kana} #{@user.first_name_kana}）" %></li>
+    </li>
+    <li class="list-group-item">
+      <%= @user.phone_number %>
+    </li>
+    <li class="list-group-item">
+      <%= @user.email %>
+    </li>
+  </ul>
+</div>

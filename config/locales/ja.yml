@@ -26,8 +26,12 @@ ja:
         body: "コメント"
       #投稿
       post:
+        category: "カテゴリ"
         title: "タイトル"
         body: "本文"
+      period:
+        start_date: "開始日"
+        end_date: "終了日"
 
     errors:
       models:
@@ -90,7 +94,17 @@ ja:
         #投稿
         post:
           attributes:
+            category:
+              blank: "を入力してください"
             title:
               blank: "を入力してください"
             body:
+              blank: "を入力してください"
+
+        #期間
+        period:
+          attributes:
+            start_date:
+              blank: "を入力してください"
+            end_date:
               blank: "を入力してください"

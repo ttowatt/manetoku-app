@@ -14,8 +14,7 @@
 
           <li class="nav-item"><%= link_to "投稿一覧", public_posts_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "アバウト", about_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "カテゴリ一覧", public_categories_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "履歴一覧", public_histories_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "履歴一覧", public_periods_path, class: "nav-link" %></li>
         </ul>
       </div>
         <ul class="navbar-nav d-flex flex-row">
@@ -26,10 +25,18 @@
             <%= link_to '<i class="fa-regular fa-bell"></i>'.html_safe, public_notifications_path, class:"nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to '<i class="fa-solid fa-circle-user"></i>'.html_safe, public_mypage_path, class: "nav-link" %>
+            <%= link_to '<i class="fa-solid fa-circle-user"></i>'.html_safe, public_user_path(current_user), class: "nav-link" %>
           </li>
         </ul>
     </nav>
 </header>
+<div>
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
 
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+</div>
 

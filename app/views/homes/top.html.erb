@@ -1,3 +1,84 @@
 <%= render "public/header1" %>
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="container">
+
+  <% if @latest_period.nil? %>
+    <div class="alert alert-warning text-center p-5 my-4" style="font-size: 1.5rem; background-color: #fff3cd; border-radius: 10px;">
+      <strong>まずは「期間」を登録してください！</strong><br>
+      登録後にカテゴリや支出を追加できるようになります。<br>
+    </div>
+  <% end %>
+
+  <!--期間登録-->
+  <%= form_with model: @period, url: public_periods_path, local: true do |f| %>
+    <% if @period.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@period.errors.count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% @period.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.label :start_date, "開始日" %>
+    <%= f.date_field :start_date %>
+    <%= f.label :end_date, "終了日" %>
+    <%= f.date_field :end_date %>
+    <%= f.submit "登録", class: "btn btn-primary" %>
+  <% end %>
+  
+  <!--期間が登録されていない場合はカテゴリ登録ボタン等を無効化-->
+  <% if @latest_period.present? %>
+    <!--カテゴリ登録-->
+    <%= link_to "カテゴリを追加", new_public_category_path, class: "btn btn-success" %>
+
+      <div>
+        <%= @latest_period.start_date %> ~ <%= @latest_period.end_date %>
+        <%= link_to "編集", edit_public_period_path(@latest_period) %>
+        <%= link_to "削除", public_period_path(@latest_period), method: :delete,
+                            data: {confirm: "本当に削除しますか？"},
+                            class:"btn btn-danger" %>
+      </div>
+
+    <div class="row d-flex align-content-center flex-wrap">
+      <% @categories.each do |category| %>
+        <div class="col-4">
+          <div>
+            <%= category.category_name %><br>
+            <%= category.budget - category.expenses.where(period_id: @latest_period.id).sum(:amount) %> 円
+            <%= link_to "編集", edit_public_category_path(category) %>
+            <%= link_to "削除", public_category_path(category), method: :delete,
+                            data: {confirm: "本当に削除しますか？"},
+                            class:"btn btn-danger" %>
+          </div>
+
+          
+            <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
+              <% if @expense.errors.any? %>
+                <div class="alert alert-danger">
+                  <h4><%= pluralize(@expense.errors.count, "件のエラー") %>があります：</h4>
+                  <ul>
+                    <% @expense.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <%= f.hidden_field :category_id, value: category.id %>
+              <%= f.hidden_field :period_id, value: @latest_period.id %>
+
+              <%= f.label :expense_date, "支出日" %>
+              <%= f.date_field :expense_date %><br>
+
+              <%= f.label :amount, "金額" %>
+              <%= f.text_field :amount, inputmode: "numeric", pattern: "[0-9]*" %> 円<br>
+
+              <%= f.submit "登録", class: "btn btn-primary mt-2" %>
+            <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
