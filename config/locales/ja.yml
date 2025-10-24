@@ -1,0 +1,110 @@
+#カテゴリの予算登録フォームのエラーメッセージ
+ja:
+  activerecord:
+    attributes:
+      #カテゴリ
+      category:
+        category_name: "カテゴリ名"
+        budget: "予算"
+      #支出
+      expense:
+        amount: "支出金額"
+        expense_date: "支出日"
+      #ユーザー
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        last_name: "姓"
+        first_name: "名"
+        last_name_kana: "姓（カナ）"
+        first_name_kana: "名（カナ）"
+        username: "ユーザー名"
+        introduction: "自己紹介"
+        phone_number: "電話番号"
+      #コメント
+      comment:
+        body: "コメント"
+      #投稿
+      post:
+        category: "カテゴリ"
+        title: "タイトル"
+        body: "本文"
+      period:
+        start_date: "開始日"
+        end_date: "終了日"
+
+    errors:
+      models:
+        #カテゴリ
+        category:
+          attributes:
+            category_name:
+              blank: "を入力してください"
+            budget:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
+
+        #支出
+        expense:
+          attributes:
+            amount:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
+            expense_date:
+              blank: "を入力してください"
+
+        #ユーザー
+        user:
+          attributes:
+            last_name:
+              blank: "を入力してください"
+              invalid: "は全角漢字で入力してください"
+            first_name:
+              blank: "を入力してください"
+              invalid: "は全角漢字で入力してください"
+            last_name_kana:
+              blank: "を入力してください"
+              invalid: "全角カタカナで入力してください"
+            first_name_kana:
+              blank: "を入力してください"
+              invalid: "全角カタカナで入力してください"
+            username:
+              blank: "を入力してください"
+              taken: "はすでに存在します"
+            phone_number:
+              blank: "を入力してください"
+              invalid: "はハイフンなしの10~11桁で入力してください"
+
+        #コメント
+        comment:
+          attributes:
+            body:
+              blank: "を入力してください"
+
+        #評価
+        review:
+          attributes:
+            star:
+              blank: "を入力してください"
+              not_a_number: "は数値を入力してください"
+              not_an_integer: "は整数で入力してください"
+              greater_than: "は1以上にしてください"
+              less_than_or_equal_to: "は5以下にしてください"
+
+        #投稿
+        post:
+          attributes:
+            category:
+              blank: "を入力してください"
+            title:
+              blank: "を入力してください"
+            body:
+              blank: "を入力してください"
+
+        #期間
+        period:
+          attributes:
+            start_date:
+              blank: "を入力してください"
+            end_date:
+              blank: "を入力してください"
