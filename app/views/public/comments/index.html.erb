@@ -1,1 +1,29 @@
 <%= render "public/header2" %>
+<h1>コメント</h1>
+<hr>
+
+<% @post.comments.each do |comment| %>
+  <div>
+    <strong><%= link_to comment.user.username, public_user_path(comment.user) %></strong>：
+    <%= comment.body %>
+
+    <% if comment.user == current_user %>
+      <%= link_to "削除", public_post_comment_path(@post, comment),
+                  method: :delete,
+                  data: { confirm: "削除しますか？" } %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<hr>
+
+<h3>新しいコメントを投稿</h3>
+<%= form_with model: [@post, Comment.new], url: public_post_comments_path(@post), local: true do |f| %>
+  <div>
+    <%= f.text_area :body, rows: 3, placeholder: "コメントを入力..." %>
+  </div>
+  <div>
+    <%= f.submit "コメントする" %>
+  </div>
+<% end %>

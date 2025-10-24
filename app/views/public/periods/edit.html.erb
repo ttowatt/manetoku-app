@@ -1,0 +1,26 @@
+<%= render "public/header1" %>
+<div class="container">
+  <%= form_with model: @period, url: public_period_path(@period), local: true do |f| %>
+    <% if @period.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@period.errors.count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% @period.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col">
+        <%= f.label :start_date, "開始日" %>
+        <%= @period.start_date %>
+        <%= f.label :end_date, "終了日" %>
+        <%= f.date_field :end_date %>
+        <%= f.submit "保存", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>
