@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # config/routes.rb
-  devise_for :admins, controllers: {registrations: 'admins/registrations'}
-  devise_for :users
+  devise_for :admins, controllers: {sessions: 'admins/sessions',registrations: 'admins/registrations'}
+  devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "homes#top"
@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     resources :periods, only: [:index, :show, :edit, :create, :update, :destroy]
   end
 
-  namespace :admin do
-    resources :users, :posts, :comments, :reviews, only: [:destroy]
+  namespace :admins do
+    get 'homes/top' => 'homes#top', as: 'root'
+    resources :users, only: [:index, :show, :destroy]
+    resources :posts, only: [:index, :show, :destroy]
+    resources :reviews, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :destroy]
   end
 end
