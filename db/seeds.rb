@@ -28,8 +28,9 @@ lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
   )
 end
 
-Post.find_or_create_by!(title: "節約術") do |post|
-  post.body = "自慢の節約術"
+Post.find_or_create_by!(title: "一押しの節約術") do |post|
+  post.category = "交通費"
+  post.body = "ぜひ試してみてください！"
   post.post_image.attach(
     io: File.open("#{Rails.root}/db/fixtures/sample-post3.jpg"),
     filename: "sample-post3.jpg"
@@ -37,4 +38,6 @@ Post.find_or_create_by!(title: "節約術") do |post|
   post.user = lucas
 end
 
+Comment
 puts "seedの実行が完了しました"
+
