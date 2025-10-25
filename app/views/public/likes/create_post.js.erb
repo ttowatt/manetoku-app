@@ -1,0 +1,4 @@
+var likeDiv = document.querySelector("#post-like-<%= @post.id %>");
+if (likeDiv) {
+  likeDiv.innerHTML = '<%= j render partial: "public/posts/post_like", locals: { post: @post } %>';
+}
