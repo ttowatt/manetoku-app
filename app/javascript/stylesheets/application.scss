@@ -1,1 +1,20 @@
 @use '~bootstrap/scss/bootstrap';
+
+.star-rating input[type="radio"] {
+  display: none; /* ラジオボタンは非表示 */
+}
+
+.star-rating label {
+  cursor: pointer;  /* クリック可能 */
+}
+
+.star-rating input[type="radio"]:checked ~ label i,
+.star-rating input[type="radio"]:checked + label i {
+  color: gold;
+}
+
+/* 右から左に並べて左側も gold にする */
+.star-rating {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
