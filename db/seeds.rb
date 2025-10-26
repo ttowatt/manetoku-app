@@ -38,9 +38,7 @@ post = Post.find_or_create_by!(title: "一押しの節約術", user_id: messhi.i
   )
 end
 
-
-puts "seedの実行が完了しました"
-
+#2stデプロイのテスト内容
 Comment.find_or_create_by!(
   body: "とても参考になりました。",
   post_id: post.id,

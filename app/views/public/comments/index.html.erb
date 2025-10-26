@@ -2,10 +2,15 @@
 <h1>コメント</h1>
 <hr>
 
-<% @post.comments.each do |comment| %>
-  <div>
+<% @comments.each do |comment| %>
+  <div id="comment-<%= comment.id %>">
     <strong><%= link_to comment.user.username, public_user_path(comment.user) %></strong>：
     <%= comment.body %>
+
+    <!-- いいねボタンと数 -->
+    <div id="comment-like-<%= comment.id %>">
+      <%= render 'comment_like', comment: comment %>
+    </div>
 
     <% if comment.user == current_user %>
       <%= link_to "削除", public_post_comment_path(@post, comment),
@@ -14,7 +19,6 @@
     <% end %>
   </div>
 <% end %>
-
 
 <hr>
 
