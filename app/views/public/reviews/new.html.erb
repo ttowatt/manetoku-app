@@ -1,1 +1,15 @@
 <%= render "public/header2" %>
+<h3>レビューを書く</h3>
+<div class="star-rating">
+  <%= form_with model: @review, url: public_post_reviews_path(@post), local: true do |f| %>
+    <% 5.downto(1) do |i| %>
+      <%= f.radio_button :star, i, id: "star#{i}" %>
+      <label for="star<%= i %>">
+        <i class="fa-regular fa-star"></i>
+      </label>
+    <% end %>
+
+    <%= f.text_area :body, placeholder: "コメント" %>
+    <%= f.submit "レビューする" %>
+  <% end %>
+</div>

@@ -9,16 +9,21 @@ class User < ApplicationRecord
          has_many :periods, dependent: :destroy
          has_many :categories, dependent: :destroy
          has_many :expenses, dependent: :destroy
+
          has_many :posts, dependent: :destroy
-         has_many :likes, dependent: :destroy
+         has_many :post_likes, dependent: :destroy
+         has_many :liked_posts, through: :post_likes, source: :post
+
+         has_many :comment_likes, dependent: :destroy
          has_many :comments, dependent: :destroy
+         
          has_many :reviews, dependent: :destroy
 
          has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
          has_many :reverse_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 
          has_many :active_relationships, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
-         has_many :followings, through: :active_relationships, source: :followed
+         has_many :following, through: :active_relationships, source: :followed
          has_many :reverse_relationships, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
          has_many :followers, through: :reverse_relationships, source: :follower
 

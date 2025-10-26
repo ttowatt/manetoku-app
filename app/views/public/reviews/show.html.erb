@@ -1,1 +1,27 @@
 <%= render "public/header2" %>
+<h2>レビュー詳細</h2>
+<h2><%= link_to @post.user.username, public_user_path(@post.user) %></h2>
+<h2><%= @post.title %> </h2>
+<h3><%= @post.body %> </h3>
+
+  <div class="@review-item">
+    <strong><%= @review.user.username %></strong>：
+    
+    <!-- レビューの星 -->
+    <span class="@review-stars">
+      <% 1.upto(5) do |i| %>
+        <% if i <= @review.star.to_i %>
+          <i class="fa-solid fa-star" style="color: gold;"></i>
+        <% else %>
+          <i class="fa-regular fa-star" style="color: #ccc;"></i>
+        <% end %>
+      <% end %>
+    </span>
+    <p><%= @review.body %></p>
+
+    <% if @review.user == current_user %>
+      <%= link_to "削除", public_post_review_path(@post, review),
+                  method: :delete,
+                  data: { confirm: "削除しますか？" } %>
+    <% end %>
+  </div>

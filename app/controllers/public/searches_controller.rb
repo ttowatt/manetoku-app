@@ -7,7 +7,7 @@ class Public::SearchesController < ApplicationController
       @q = User.ransack(username_cont: @keyword)
       @results = @q.result(distinct: true)
     elsif @model == "post"
-      @q = Post.ransack(title_or_body_cont: @keyword)
+      @q = Post.ransack(title_or_body_or_category_cont: @keyword)
       @results = @q.result(distinct: true)
     else
       @results = []

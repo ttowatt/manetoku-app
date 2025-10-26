@@ -2,15 +2,6 @@
 <header>
   <nav class="navbar">
     <div class="d-flex align-items-center">
-      <!-- 検索フォーム -->
-      <%= form_with url: public_search_path, method: :get, local: true, class: "d-flex" do |f| %>
-        <%= text_field_tag :keyword, params[:keyword], placeholder: "キーワードを入力", class: "form-control me-2" %>
-        
-        <%= select_tag :model, options_for_select([["投稿", "post"], ["ユーザー", "user"]], params[:model]), class: "form-select me-2" %>
-      
-        <%= f.submit "検索", class: "btn btn-outline-success" %>
-      <% end %>
-    </div>
 
       <ul class="navbar-nav d-flex flex-row align-item-center">
         <li class="nav-item">
