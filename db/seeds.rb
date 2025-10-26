@@ -74,6 +74,7 @@ other_user = User.find_or_create_by!(email: "public@example.com") do |user|
   user.first_name_kana = "ハナコ"
   user.phone_number = "09012345678"
   user.username = "tanaka"
+  user.introduction = "hello"
   user.password = "public1"
 end
 
@@ -95,20 +96,13 @@ Review.find_or_create_by!(
   body: "内容がとてもわかりやすかったです！"
 )
 
-# 通知(フォローしているユーザーが投稿)・未読
-Notification.find_or_create_by!(
-  visitor_id: other_user.id,
-  visited_id: ludo.id,
-  post_id: post.id,
-  is_read: false
-)
-
-# 通知(フォローしているユーザーが投稿)・既読
+# 通知(フォローしているユーザーが投稿)
 Notification.find_or_create_by!(
   visitor_id: other_user.id,
   visited_id: ludo.id,
   post_id: post.id,
   is_read: true
 )
+
 puts "seedの実行が完了しました"
 
