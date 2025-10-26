@@ -1,5 +1,0 @@
-var likeDiv = document.querySelector("#comment-like-<%= @comment.id %>");
-if (likeDiv) {
-  likeDiv.innerHTML = '<%= j render partial: "public/comments/comment_like", locals: { comment: @comment } %>';
-}
-

@@ -17,12 +17,9 @@ Rails.application.routes.draw do
 
     resources :posts, only: [:new, :index, :show, :create, :destroy] do
       resources :reviews, only: [:index, :new, :show, :create, :destroy]
-
-        post 'like', to: 'likes#create_post', as: 'like'
-        delete 'unlike', to: 'likes#destroy_post', as: 'unlike'
+      resources :post_likes, only: [:create, :destroy]
       resources :comments, only: [:index, :create, :destroy] do
-          post 'like', to: 'likes#create_comment', as: 'like'
-          delete 'unlike', to: 'likes#destroy_comment', as: 'unlike'
+        resources :comment_likes, only: [:create, :destroy]
       end
     end
     

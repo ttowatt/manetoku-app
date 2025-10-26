@@ -68,7 +68,7 @@
             <!-- 投稿本文 -->
             <p class="card-title"><%= truncate(post.body, length: 20) %></p>
             <!-- いいね -->
-            <p><%= post.likes.count %></p>
+            <p><%= post.post_likes.count %></p>
             <!-- コメント一覧へのリンク -->
             <p>
               <%= link_to public_post_comments_path(post) do %>
@@ -82,14 +82,14 @@
     </div>
 
     <div id="likes" class="tab-content" style="display:none;">
-      <% @user.likes.each do |like| %>
-        <p><%= like.post.title %></p>
+      <% @user.liked_posts.each do |post| %>
+        <p><%= post.title %></p>
       <% end %>
     </div>
 
     <div id="reviews" class="tab-content" style="display:none;">
       <% @user.reviews.each do |review| %>
-        <p><%= review. %></p>
+        <p><%= review %></p>
       <% end %>
     </div>
   </div>

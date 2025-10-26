@@ -1,0 +1,4 @@
+const commentLikeElement = document.getElementById("comment-like-<%= @comment.id %>");
+if (commentLikeElement) {
+  commentLikeElement.innerHTML = `<%= j(render 'public/comments/comment_like', comment: @comment) %>`;
+}
