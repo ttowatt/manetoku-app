@@ -1,0 +1,13 @@
+<% if post.likes.exists?(user: current_user) %>
+  <%= button_to "いいね解除",public_post_unlike_path(post),
+      method: :delete,
+      remote: true,
+      class: "unlike-button" %>
+<% else %>
+  <%= button_to "いいね",public_post_like_path(post),
+      method: :post,
+      remote: true,
+      class: "like-button" %>
+<% end %>
+
+<span><%= post.likes.count %></span>

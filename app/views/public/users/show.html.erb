@@ -15,6 +15,16 @@
     <%= link_to "投稿", new_public_post_path, class:"btn btn-primary" %>
   </div>
 
+  <div id="follow_button">
+    <% if current_user.following.include?(@user) %>
+      <%= button_to "フォロー解除", public_user_follow_path(@user), method: :delete, remote: true %>
+    <% else %>
+      <%= button_to "フォロー", public_user_follow_path(@user), method: :post, remote: true %>
+    <% end %>
+  </div>
+
+
+
   <div class="row">
     <div class="col-4">
       <p>投稿数</p>
@@ -22,7 +32,7 @@
     </div>
     <div class="col-4">
       <p>フォロー数</p>
-      <p><%= @user.followings.count %></p>
+      <p><%= @user.following.count %></p>
     </div>
     <div class="col-4">
       <p>フォロワー数</p>
@@ -42,11 +52,11 @@
   </div>
   <div id="posts" class="tab-content">
     <div class="row">
-      <% @user.posts.each do |post| %>
+      <% @posts.each do |post| %>
         <div class="card">
           <!-- 投稿画像 -->
           <% if post.post_image.attached? %>
-            <%= image_tag post.image, size: "100x100" %>
+            <%= image_tag post.post_image, size: "100x100" %>
           <% else %>
             <img src="no_image.jpg">
           <% end %>
@@ -79,7 +89,7 @@
 
     <div id="reviews" class="tab-content" style="display:none;">
       <% @user.reviews.each do |review| %>
-        <p><%= review.title %></p>
+        <p><%= review. %></p>
       <% end %>
     </div>
   </div>
