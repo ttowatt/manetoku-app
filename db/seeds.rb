@@ -14,24 +14,24 @@ Admin.find_or_create_by!(email: 'admin@example.com') do |admin|
   admin.password_confirmation = ENV.fetch("ADMIN_PASSWORD")
 end
 
-messhi = User.find_or_create_by!(email: "messhi@example.com") do |user|
-  user.last_name = "加藤"
-  user.first_name = "良子"
-  user.last_name_kana = "カトウ"
-  user.first_name_kana = "ヨシコ"
-  user.phone_number = "09014725836"
-  user.username = "messhi"
-  user.introduction = "hello world"
-  user.password = "password123"
+ludo = User.find_or_create_by!(email: "ludo@example.com") do |user|
+  user.last_name = "斎藤"
+  user.first_name = "久夫"
+  user.last_name_kana = "サイトウ"
+  user.first_name_kana = "ヒサオ"
+  user.phone_number = "09048489696"
+  user.username = "ludo"
+  user.introduction = "hello japan"
+  user.password = "password456"
   user.profile_image.attach(
     io: File.open("#{Rails.root}/db/fixtures/sample-user3.jpg"),
     filename: "sample-user3.jpg"
   )
 end
 
-post = Post.find_or_create_by!(title: "一押しの節約術", user_id: messhi.id) do |p|
-  p.category = "交通費"
-  p.body = "ぜひ試してみてください！"
+post = Post.find_or_create_by!(title: "革命的", user_id: ludo.id) do |p|
+  p.category = "交際費"
+  p.body = "知らないと損！"
   p.post_image.attach(
     io: File.open("#{Rails.root}/db/fixtures/sample-post3.jpg"),
     filename: "sample-post3.jpg"
@@ -40,30 +40,75 @@ end
 
 #2stデプロイのテスト内容
 Comment.find_or_create_by!(
-  body: "とても参考になりました。",
+  body: "非常にためになった",
   post_id: post.id,
-  user_id: messhi.id
+  user_id: ludo.id
 )
 
 period = Period.find_or_create_by!(
-  start_date: Date.new(2025,10,24),
-  end_date: Date.new(2025,10,25),
-  user_id: messhi.id
+  start_date: Date.new(2025,10,26),
+  end_date: Date.new(2025,10,27),
+  user_id: ludo.id
 )
 
 category = Category.find_or_create_by!(
-  category_name: "交通費",
-  budget: 15000,
-  user_id: messhi.id,
+  category_name: "通信費",
+  budget: 18000,
+  user_id: ludo.id,
   period_id: period.id
 )
 
 Expense.find_or_create_by!(
-  amount: 700,
-  expense_date: Date.new(2025,10,24),
-  user_id: messhi.id,
+  amount: 900,
+  expense_date: Date.new(2025,10,27),
+  user_id: ludo.id,
   period_id: period.id,
   category_id: category.id
+)
+
+# フォロー関係
+other_user = User.find_or_create_by!(email: "public@example.com") do |user|
+  user.last_name = "田中"
+  user.first_name = "花子"
+  user.last_name_kana = "タナカ"
+  user.first_name_kana = "ハナコ"
+  user.phone_number = "09012345678"
+  user.username = "tanaka"
+  user.password = "public1"
+end
+
+# ludoがother_userをフォロー
+Follow.find_or_create_by!(follower_id: ludo.id, followed_id: other_user.id)
+
+# 投稿へのいいね
+PostLike.find_or_create_by!(user_id: other_user.id, post_id: post.id)
+
+# コメントへのいいね
+comment = Comment.find_by(post_id: post.id)
+CommentLike.find_or_create_by!(user_id: other_user.id, comment_id: comment.id)
+
+# レビュー（評価）
+Review.find_or_create_by!(
+  post_id: post.id,
+  user_id: other_user.id,
+  star: 4,
+  body: "内容がとてもわかりやすかったです！"
+)
+
+# 通知(フォローしているユーザーが投稿)・未読
+Notification.find_or_create_by!(
+  visitor_id: other_user.id,
+  visited_id: ludo.id,
+  post_id: post.id,
+  is_read: false
+)
+
+# 通知(フォローしているユーザーが投稿)・既読
+Notification.find_or_create_by!(
+  visitor_id: other_user.id,
+  visited_id: ludo.id,
+  post_id: post.id,
+  is_read: true
 )
 puts "seedの実行が完了しました"
 

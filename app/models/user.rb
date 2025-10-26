@@ -9,9 +9,14 @@ class User < ApplicationRecord
          has_many :periods, dependent: :destroy
          has_many :categories, dependent: :destroy
          has_many :expenses, dependent: :destroy
+
          has_many :posts, dependent: :destroy
-         has_many :likes, dependent: :destroy
+         has_many :post_likes, dependent: :destroy
+         has_many :liked_posts, through: :post_likes, source: :post
+
+         has_many :comment_likes, dependent: :destroy
          has_many :comments, dependent: :destroy
+         
          has_many :reviews, dependent: :destroy
 
          has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy

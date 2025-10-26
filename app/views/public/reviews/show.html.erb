@@ -3,7 +3,7 @@
 <h2><%= link_to @post.user.username, public_user_path(@post.user) %></h2>
 <h2><%= @post.title %> </h2>
 <h3><%= @post.body %> </h3>
-<hr>
+
   <div class="@review-item">
     <strong><%= @review.user.username %></strong>：
     
@@ -18,5 +18,10 @@
       <% end %>
     </span>
     <p><%= @review.body %></p>
-    <hr>
+
+    <% if @review.user == current_user %>
+      <%= link_to "削除", public_post_review_path(@post, review),
+                  method: :delete,
+                  data: { confirm: "削除しますか？" } %>
+    <% end %>
   </div>

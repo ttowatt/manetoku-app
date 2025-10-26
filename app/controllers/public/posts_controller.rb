@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.includes(:user, :reviews).order(created_at: :desc)
+    @posts = Post.includes(:user, :reviews, :post_likes).order(created_at: :desc)
   end
   
   def create
