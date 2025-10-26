@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.includes(:user, :reviews, :post_likes).order(created_at: :desc)
   end
   
   def create
@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
   end
   
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes(:reviews, :user).find(params[:id])
   end
   
   def destroy

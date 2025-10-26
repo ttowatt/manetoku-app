@@ -1,1 +1,16 @@
 <%= render "public/header2" %>
+<h2>通知一覧</h2>
+
+<%= link_to "すべて既読にする", mark_all_as_read_public_notifications_path, method: :patch, class: "btn btn-primary" %>
+
+<ul>
+  <% @notifications.each do |notification| %>
+    <li class="<%= 'unread' unless notification.is_read %>">
+      <%= link_to notification.visitor.username, public_user_path(notification.visitor) %> さんが
+      <%= link_to '新しい投稿', public_post_path(notification.post) %> をしました。
+      <% unless notification.is_read %>
+        <%= link_to "既読にする", mark_as_read_public_notification_path(notification), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

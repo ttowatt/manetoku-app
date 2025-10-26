@@ -1,0 +1,22 @@
+<div id="post-like-<%= post.id %>">
+  <% liked = post.post_likes.exists?(user: current_user) %>
+
+  <% if liked %>
+    <%= button_to 'いいね解除', public_post_post_like_path(post, post.post_likes.find_by(user: current_user)),
+                  method: :delete,
+                  remote: true,
+                  class: 'post-like-button',
+                  data: { post_id: post.id } %>
+  <% else %>
+    <%= button_to 'いいね', public_post_post_likes_path(post),
+                  method: :post,
+                  remote: true,
+                  class: 'post-like-button',
+                  data: { post_id: post.id } %>
+  <% end %>
+
+  <span><%= post.post_likes.count %></span>
+</div>
+
+
+

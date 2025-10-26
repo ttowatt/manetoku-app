@@ -11,14 +11,27 @@ Rails.application.routes.draw do
     get 'search', to: 'searches#search', as: 'search'
     get 'users/withdraw', to: 'users#withdraw_confirm', as: 'withdraw_confirm'
     delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'
-    resources :users, only: [:index, :edit, :show, :update, :destroy]
+    resources :users, only: [:index, :edit, :show, :update, :destroy]do
+      resource :follow, only: [:create, :destroy]
+    end
 
     resources :posts, only: [:new, :index, :show, :create, :destroy] do
-      resources :comments, only: [:index, :create, :destroy]
+      resources :reviews, only: [:index, :new, :show, :create, :destroy]
+      resources :post_likes, only: [:create, :destroy]
+      resources :comments, only: [:index, :create, :destroy] do
+        resources :comment_likes, only: [:create, :destroy]
+      end
     end
     
-    resources :follows, only: [:create, :destroy]
-    resources :notifications, only: [:index, :update, :destroy]
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_as_read
+      end
+      collection do
+        patch :mark_all_as_read
+      end
+    end
+
     resources :categories, only: [:new, :edit, :create, :update, :destroy]
     resources :expenses, only: [:edit, :create, :update, :destroy]
     resources :periods, only: [:index, :show, :edit, :create, :update, :destroy]

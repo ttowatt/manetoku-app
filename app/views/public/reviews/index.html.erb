@@ -1,1 +1,23 @@
 <%= render "public/header2" %>
+<h2><%= link_to @post.user.username, public_user_path(@post.user) %></h2>
+<h2><%= @post.title %> のレビュー一覧</h2>
+
+<% @reviews.each do |review| %>
+  <div class="review-item">
+    <strong><%= review.user.username %></strong>：
+    
+    <!-- レビューの星 -->
+    <span class="review-stars">
+      <% 1.upto(5) do |i| %>
+        <% if i <= review.star.to_i %>
+          <i class="fa-solid fa-star" style="color: gold;"></i>
+        <% else %>
+          <i class="fa-regular fa-star" style="color: #ccc;"></i>
+        <% end %>
+      <% end %>
+    </span>
+
+    <p><%= review.body %></p>
+     <%= link_to "詳細", public_post_review_path(@post, review) %> 
+  </div>
+<% end %>

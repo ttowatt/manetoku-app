@@ -31,8 +31,14 @@
           <li class="nav-item">
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <%= link_to '<i class="fa-regular fa-bell"></i>'.html_safe, public_notifications_path, class:"nav-link" %>
+          <li class="nav-item position-relative">
+            <%= link_to public_notifications_path, class: "nav-link position-relative" do %>
+              <i class="fa-regular fa-bell"></i>
+
+              <% if @unread_notifications.present? %>
+                <span class="notification-badge"></span>
+              <% end %>
+            <% end %>
           </li>
           <li class="nav-item">
             <%= link_to '<i class="fa-solid fa-circle-user"></i>'.html_safe, public_user_path(current_user), class: "nav-link" %>
