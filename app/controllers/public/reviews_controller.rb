@@ -16,7 +16,7 @@ class Public::ReviewsController < ApplicationController
     if @review.save
       redirect_to public_post_reviews_path(@post), notice: "レビューを投稿しました"
     else
-      redirect_to new_public_post_review_path(@post), alert: @review.errors.full_messages.join(", ")
+      redirect_to new_public_post_review_path(@post), alert: "レビューを投稿に失敗しました"
     end
   end
   
@@ -25,6 +25,10 @@ class Public::ReviewsController < ApplicationController
   end
   
   def destroy
+    review = Review.find(params[:id])
+    review.destroy
+    flash[:notice]= "評価の削除が成功しました"
+    redirect_to public_post_reviews_path(@post)
   end
 
   private
