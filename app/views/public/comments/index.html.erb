@@ -8,9 +8,7 @@
     <%= comment.body %>
 
     <!-- いいねボタンと数 -->
-    <div id="comment-like-<%= comment.id %>">
-      <%= render 'comment_like', comment: comment %>
-    </div>
+      <%= render 'public/comments/comment_like', comment: comment %>
 
     <% if comment.user == current_user %>
       <%= link_to "削除", public_post_comment_path(@post, comment),

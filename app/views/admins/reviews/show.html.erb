@@ -1,1 +1,34 @@
 <%= render "admins/header" %>
+<h2>レビュー詳細</h2>
+
+<!-- 投稿情報 -->
+<div class="post-info">
+  <h3>投稿者: <%= @review.post.user.username %></h3>
+  <h3>タイトル: <%= @review.post.title %></h3>
+  <p><%= @review.post.body %></p>
+</div>
+
+<!-- レビュー情報 -->
+<div class="review-item">
+  <strong>レビュー投稿者: <%= @review.user.username %></strong>
+  
+  <!-- レビューの星 -->
+  <span class="review-stars">
+    <% 1.upto(5) do |i| %>
+      <% if i <= @review.star.to_i %>
+        <i class="fa-solid fa-star" style="color: gold;"></i>
+      <% else %>
+        <i class="fa-regular fa-star" style="color: #ccc;"></i>
+      <% end %>
+    <% end %>
+  </span>
+
+  <!-- レビュー本文 -->
+  <p><%= @review.body %></p>
+
+  <!-- 管理者用の削除ボタン -->
+  <%= link_to "削除", admins_review_path(@review),
+              method: :delete,
+              data: { confirm: "本当に削除しますか？" },
+              class: "btn btn-danger" %>
+</div>

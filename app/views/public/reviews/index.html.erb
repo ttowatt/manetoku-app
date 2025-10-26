@@ -1,7 +1,6 @@
 <%= render "public/header2" %>
 <h2><%= link_to @post.user.username, public_user_path(@post.user) %></h2>
 <h2><%= @post.title %> のレビュー一覧</h2>
-<hr>
 
 <% @reviews.each do |review| %>
   <div class="review-item">
@@ -20,6 +19,5 @@
 
     <p><%= review.body %></p>
      <%= link_to "詳細", public_post_review_path(@post, review) %> 
-    <hr>
   </div>
 <% end %>

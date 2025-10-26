@@ -4,17 +4,36 @@
 <table>
   <thead>
     <tr>
+      <th>投稿者</th>
+      <th>カテゴリ</th>
+      <th>投稿タイトル</th>
       <th>評価</th>
+      <th>レビュー本文</th>
       <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <% @reviews.each do |review| %>
       <tr>
-        <td><%= review.body %></td>
+        <td><%= review.user.username %></td>
+        <td><%= review.post.category %></td>
+        <td><%= review.post.title %></td>
         <td>
-          <%= link_to "詳細", admins_review_path(review) %>
-          <%= link_to "削除", admins_review_path(review), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          <% 1.upto(5) do |i| %>
+            <% if i <= review.star.to_i %>
+              <i class="fa-solid fa-star" style="color: gold;"></i>
+            <% else %>
+              <i class="fa-regular fa-star" style="color: #ccc;"></i>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= truncate(review.body, length: 50) %></td>
+        <td>
+          <%= link_to "詳細", admins_review_path(review), class: "btn btn-sm btn-primary" %>
+          <%= link_to "削除", admins_review_path(review), 
+                      method: :delete, 
+                      data: { confirm: "本当に削除しますか？" }, 
+                      class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
     <% end %>

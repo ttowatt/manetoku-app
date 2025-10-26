@@ -1,15 +1,20 @@
-<% if comment.likes.exists?(user: current_user) %>
-  <%= button_to "いいね解除",
-      public_post_comment_unlike_path(comment.post, comment),
-      method: :delete,
-      remote: true,
-      class: "unlike-button" %>
-<% else %>
-  <%= button_to "いいね",
-      public_post_comment_like_path(comment.post, comment),
-      method: :post,
-      remote: true,
-      class: "like-button" %>
-<% end %>
+<div id="comment-like-<%= comment.id %>">
+  <% liked = comment.comment_likes.exists?(user: current_user) %>
 
-<span><%= comment.likes.count %></span>
+  <% if liked %>
+    <% like = comment.comment_likes.find_by(user: current_user) %>
+    <%= button_to 'いいね解除', public_post_comment_comment_like_path(comment.post, comment, like),
+                  method: :delete,
+                  remote: true,
+                  class: 'comment-like-button',
+                  data: { comment_id: comment.id } %>
+  <% else %>
+    <%= button_to 'いいね', public_post_comment_comment_likes_path(comment.post, comment),
+                  method: :post,
+                  remote: true,
+                  class: 'comment-like-button',
+                  data: { comment_id: comment.id } %>
+  <% end %>
+
+  <span><%= comment.comment_likes.count %></span>
+</div>

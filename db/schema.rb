@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_10_23_071828) do
+ActiveRecord::Schema.define(version: 2025_10_26_074724) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 2025_10_23_071828) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+  create_table "comment_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["comment_id"], name: "index_comment_likes_on_comment_id"
+    t.index ["user_id"], name: "index_comment_likes_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -95,17 +104,6 @@ ActiveRecord::Schema.define(version: 2025_10_23_071828) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "post_id"
-    t.integer "comment_id"
-    t.index ["comment_id"], name: "index_likes_on_comment_id"
-    t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
-  end
-
   create_table "notifications", force: :cascade do |t|
     t.boolean "is_read"
     t.datetime "created_at", precision: 6, null: false
@@ -127,6 +125,15 @@ ActiveRecord::Schema.define(version: 2025_10_23_071828) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_periods_on_user_id"
+  end
+
+  create_table "post_likes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "post_id"
+    t.index ["post_id"], name: "index_post_likes_on_post_id"
+    t.index ["user_id"], name: "index_post_likes_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -175,6 +182,8 @@ ActiveRecord::Schema.define(version: 2025_10_23_071828) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "periods"
   add_foreign_key "categories", "users"
+  add_foreign_key "comment_likes", "comments"
+  add_foreign_key "comment_likes", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "expenses", "categories"
@@ -182,12 +191,11 @@ ActiveRecord::Schema.define(version: 2025_10_23_071828) do
   add_foreign_key "expenses", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
-  add_foreign_key "likes", "comments"
-  add_foreign_key "likes", "posts"
-  add_foreign_key "likes", "users"
   add_foreign_key "notifications", "posts"
   add_foreign_key "notifications", "users"
   add_foreign_key "periods", "users"
+  add_foreign_key "post_likes", "posts"
+  add_foreign_key "post_likes", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "reviews", "posts"
   add_foreign_key "reviews", "users"
