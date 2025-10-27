@@ -1,9 +1,20 @@
 @use '~bootstrap/scss/bootstrap';
 
+body {
+  padding-top: 70px;     /* ヘッダーとフッターに埋まってしまうのを防止 */
+  padding-bottom: 180px;
+}
+
+
 .header-footer-color {
   background: linear-gradient(180deg, #89d957, #c9e265) ;
 }
 
+.card-header-color {
+  background: linear-gradient(200deg, #89d957, #c9e265) ;
+}
+
+/*カテゴリ追加・投稿ボタンの左上固定（スクロールにも対応）*/
 .fixed-top-right {
   position: fixed;
   top: 5rem;
