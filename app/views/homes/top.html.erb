@@ -1,5 +1,5 @@
 <%= render "public/header1" %>
-<div class="container py-4">
+<div class="container">
 <!--カテゴリ登録-->
   <% if @latest_period.present? %>
     <%= link_to new_public_category_path, class: "btn btn-success fixed-top-right" do %>
@@ -38,63 +38,72 @@
   
   <!--期間が登録されていない場合はカテゴリ登録ボタンなどを無効化-->
   <% if @latest_period.present? %>
-  
-  <!--支出登録のエラーメッセージ-->
-  <% if @expense.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(@expense.errors.count, "件のエラー") %>があります：</h4>
-      <ul>
-        <% @expense.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="row d-flex align-content-center flex-wrap border border-secondary rounded">
-    <div class="col-12 card border-secondary">
-      <div class="card-header">
-        <%= @latest_period.start_date %> ~ <%= @latest_period.end_date %>
-        <%= link_to "編集", edit_public_period_path(@latest_period) %>
-        <%= link_to "削除", public_period_path(@latest_period), method: :delete,
-                            data: {confirm: "本当に削除しますか？"},
-                            class:"btn btn-danger" %>
+    <!--支出登録のエラーメッセージ-->
+    <% if flash[:expense_errors].present? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(flash[:expense_errors].count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% flash[:expense_errors].each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
-    </div>
+    <% end %>
 
-      
 
-      <% @categories.each do |category| %>
-      <div class="col-4 card-body">
-        <div class="card border-secondary">
-          <div class="card-header">
-            <%= category.category_name %><br>
-            <%= category.budget - category.expenses.where(period_id: @latest_period.id).sum(:amount) %> 円
-            <%= link_to "編集", edit_public_category_path(category) %>
-            <%= link_to "削除", public_category_path(category), method: :delete,
-                            data: {confirm: "本当に削除しますか？"},
-                            class:"btn btn-danger" %>
-          </div>
-
-          
-          <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
-            
-
-          <div class="card-body">
-            <%= f.hidden_field :category_id, value: category.id %>
-            <%= f.hidden_field :period_id, value: @latest_period.id %>
-
-              <%= f.label :expense_date, "支出日" %>
-              <%= f.date_field :expense_date %><br>
-
-              <%= f.label :amount, "金額" %>
-              <%= f.text_field :amount, inputmode: "numeric", pattern: "[0-9]*" %> 円<br>
-
-              <%= f.submit "登録", class: "btn btn-primary mt-2" %>
+    <div class="row d-flex align-content-center flex-wrap border border-secondary rounded">
+      <div class="col-12  p-0 card border-secondary">
+        <div class="card-header text-center card-header-color">
+          <h3>
+            <%= @latest_period.start_date %> ~ <%= @latest_period.end_date %>
+            <%= link_to edit_public_period_path(@latest_period), class:"btn btn-warning" do %>
+              <i class="fa-solid fa-pen"></i>
             <% end %>
-          </div>
+            <%= link_to public_period_path(@latest_period), method: :delete,
+                        data: {confirm: "本当に削除しますか？"},
+                        class:"btn btn-danger" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </h3>
         </div>
       </div>
+
+        <% @categories.each do |category| %>
+        <div class="col-4 card-body">
+          <div class="card border-secondary">
+            <div class="card-header card-header-color">
+              <p><%= link_to category.category_name, public_period_path(@latest_period), class:"m-0 btn btn-success" %></p>
+              残高<%= category.budget - category.expenses.where(period_id: @latest_period.id).sum(:amount) %> 円 <br>
+              <%= link_to edit_public_category_path(category), class:"mt-2 btn btn-warning btn-sm" do %>
+                <i class="fa-solid fa-pen"></i>
+              <% end %>
+              <%= link_to public_category_path(category), method: :delete,
+                          data: {confirm: "本当に削除しますか？"},
+                          class:"mt-2 btn btn-danger btn-sm" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </div>
+
+            
+            <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
+              
+
+            <div class="card-body">
+              <%= f.hidden_field :category_id, value: category.id %>
+              <%= f.hidden_field :period_id, value: @latest_period.id %>
+
+                <%= f.label :expense_date, "支出日", class:"font-weight-bold" %>
+                <%= f.date_field :expense_date, class:"form-control" %>
+
+                <%= f.label :amount, "支出金額", class:"font-weight-bold" %>
+                <%= f.text_field :amount, inputmode: "numeric", pattern: "[0-9]*", class:"form-control" %>
+
+                <%= f.submit "登録", class: "btn btn-primary mt-2" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
   <% end %>

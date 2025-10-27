@@ -9,8 +9,11 @@ class Public::ExpensesController < ApplicationController
     if @expense.save
       redirect_to root_path, notice: "支出を登録しました"
     else
-      flash.now[:alert] = "登録に失敗しました"
-      render "homes/top"
+      # renderの場合エラーメッセージが表示されている画面でリロードするとルーティングエラーになる為
+      # 他と書き方が異なっている（支出の一覧ページは作成しない）
+      flash[:expense_errors] = @expense.errors.full_messages
+      flash[:expense_params] = expense_params
+      redirect_to root_path
     end
   end
 
