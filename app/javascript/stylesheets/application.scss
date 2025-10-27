@@ -1,5 +1,16 @@
 @use '~bootstrap/scss/bootstrap';
 
+.header-footer-color {
+  background: linear-gradient(180deg, #89d957, #c9e265) ;
+}
+
+.fixed-top-right {
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+}
+
+/*評価登録フォーム*/
 .star-rating input[type="radio"] {
   display: none; /* ラジオボタンは非表示 */
 }
@@ -18,3 +29,4 @@
   direction: rtl;
   unicode-bidi: bidi-override;
 }
+

@@ -2,12 +2,15 @@ class Public::ExpensesController < ApplicationController
   
   def create
     @expense = current_user.expenses.new(expense_params)
+    @latest_period = Period.last
+    @categories = current_user.categories.where(period_id: @latest_period.id)
+    @period = Period.new  # homes/topで使うフォーム用
 
     if @expense.save
-      redirect_to root_path, notice: "支出の登録が成功しました"
+      redirect_to root_path, notice: "支出を登録しました"
     else
-      flash[:alert] = "支出の登録に失敗しました"
-      redirect_to root_path
+      flash.now[:alert] = "登録に失敗しました"
+      render "homes/top"
     end
   end
 
