@@ -5,6 +5,9 @@ body {
   padding-bottom: 180px;
 }
 
+.min-vh-100 {
+  min-height: 100vh; /* 画面の高さ全体をカバー */
+}
 
 .header-footer-color {
   background: linear-gradient(180deg, #89d957, #c9e265) ;
@@ -12,6 +15,15 @@ body {
 
 .card-header-color {
   background: linear-gradient(200deg, #89d957, #c9e265) ;
+}
+
+.bullhorn-css{
+  color: blue;
+  font-size: 24px;
+}
+
+.star-color {
+  color: gold;
 }
 
 /*カテゴリ追加・投稿ボタンの左上固定（スクロールにも対応）*/

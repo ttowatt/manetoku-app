@@ -1,5 +1,8 @@
 <%= render "public/header1" %>
 <div class="container justify-content-center">
+  <h5 class="my-4 text-center bg-light">
+   <i class="fa-solid fa-bullhorn mr-2 bullhorn-css"></i>カテゴリをクリックして支出一覧を見る
+  </h5>
   <h1 class="my-4 text-center">各期間のカテゴリ一覧</h1>
   <% @periods.each do |period| %>
     <div class="period row mb-5 d-flex flex-wrap border border-secondary rounded">
