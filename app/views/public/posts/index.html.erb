@@ -1,35 +1,51 @@
 <%= render "public/header2" %>
-<h1>投稿一覧</h1>
-<% @posts.each do |post| %>
-  <div class="card w-75">
-    <div class="card-header">
-      <h2><%= link_to post.user.username, public_user_path(post.user) %></h2>
-      <h4><%= post.category %> <%= post.title %></h4>
-    </div>
-    <div class="card-img">
-      <% if post.post_image.attached? %>
-        <%= image_tag post.post_image, size: "300x300" %>
-      <% else %>
-        <%= image_tag "no_image.jpg", size: "300x300" %>
-      <% end %>
-    </div>
-    <div class="card-body d-flex">
-      <!-- いいねボタンと数 -->
-        <%= render 'public/posts/post_like', post: post %>
-
-      <p>
-        <%= link_to public_post_comments_path(post) do %>
-          <i class="fa-regular fa-comment"></i>
-        <% end %>
-      </p>
-
-      <% avg_star = post.reviews.average(:star) || 0 %>
-      <p><i class="fa-solid fa-star"></i> <%= avg_star.round(1) %> / 5 (<%= post.reviews.count %>件)</p>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <h1 class="mb-3 text-center">投稿一覧</h1>
+    <% @posts.each do |post| %>
+      <div class="col-12 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-image">
+            <% if post.post_image.attached? %>
+              <%= image_tag post.post_image, class: "card-img-top", alt: "投稿画像" %>
+            <% else %>
+              <%= image_tag "no_image.jpg", class: "card-img-top", alt: "画像なし" %>
+            <% end %>
+          </div>
       
-      <% if post.user != current_user %>
-        <%= link_to "評価する", new_public_post_review_path(post) %>
-        <%= link_to "評価一覧", public_post_reviews_path(post) %>
-      <% end %>
-    </div>
+          <div class="card-body text-left">
+            <p class="mb-1 btn btn-success"><%= post.category %></p>
+            <% if post.user.present? %>
+              <%= link_to post.user.username, public_user_path(post.user) %>
+            <% else %>
+              <span class="text-muted">退会したユーザー</span>
+            <% end %>
+            <h5 class="card-title mb-2"><%= post.title %></h5>
+            <p class="card-text">
+              <%= truncate(post.body, length: 11) %>
+              <%= link_to "詳細を見る", public_post_path(post), class:"btn btn-link" %>
+            </p>
+            <div class="d-flex align-items-center my-3">
+            
+              <%= render 'public/posts/post_like', post: post %>
+
+              <% avg_star = post.reviews.average(:star) || 0 %>
+              <p class="mb-0 mr-3 d-flex align-items-center">
+                <i class="fa-solid fa-star star-color me-1"></i>
+                <%= avg_star.round(1) %> / 5 (<%= post.reviews.count %>件)
+              </p>
+
+              <%= link_to public_post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
+                <i class="fa-regular fa-comment fa-2x"></i>
+              <% end %>
+            </div>
+            <% if post.user != current_user %>
+              <%= link_to "評価する", new_public_post_review_path(post), class:"btn btn-primary" %>
+              <%= link_to "評価一覧", public_post_reviews_path(post), class:"btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

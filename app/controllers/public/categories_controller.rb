@@ -12,7 +12,7 @@ class Public::CategoriesController < ApplicationController
 
     if @category.save
       flash[:notice]= "カテゴリの追加が成功しました"
-      redirect_to root_path
+      redirect_to top_path
     else
       flash.now[:alert] = "カテゴリの追加に失敗しました"
       render "new"
@@ -26,7 +26,7 @@ class Public::CategoriesController < ApplicationController
   def update
     @category = current_user.categories.find(params[:id])
     if @category.update(category_params)
-      redirect_to root_path, notice: "カテゴリを更新しました"
+      redirect_to top_path, notice: "カテゴリを更新しました"
     else
       render "edit"
     end
@@ -36,7 +36,7 @@ class Public::CategoriesController < ApplicationController
     @category = current_user.categories.find(params[:id])
     @category.destroy
     flash[:notice] = "カテゴリの削除が成功しました"
-    redirect_to root_path
+    redirect_to top_path
   end
   
   private
