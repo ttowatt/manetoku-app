@@ -7,13 +7,13 @@ class Public::ExpensesController < ApplicationController
     @period = Period.new  # homes/topで使うフォーム用
 
     if @expense.save
-      redirect_to root_path, notice: "支出を登録しました"
+      redirect_to top_path, notice: "支出を登録しました"
     else
       # renderの場合エラーメッセージが表示されている画面でリロードするとルーティングエラーになる為
       # 他と書き方が異なっている（支出の一覧ページは作成しない）
       flash[:expense_errors] = @expense.errors.full_messages
       flash[:expense_params] = expense_params
-      redirect_to root_path
+      redirect_to top_path
     end
   end
 
