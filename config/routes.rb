@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get 'search', to: 'searches#search', as: 'search'
     get 'users/withdraw', to: 'users#withdraw_confirm', as: 'withdraw_confirm'
     delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'
-    resources :users, only: [:index, :edit, :show, :update, :destroy]do
+    resources :users, only: [:edit, :show, :update, :destroy]do
       resource :follow, only: [:create, :destroy]
     end
 

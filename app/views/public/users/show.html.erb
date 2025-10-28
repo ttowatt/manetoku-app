@@ -5,7 +5,7 @@
 
       <!-- プロフィール画像 -->
       <div class="mb-3">
-        <%= image_tag @user.get_profile_image, size: '120x120', class: "rounded-circle border", alt: "プロフィール画像" %>
+        <%= image_tag @user.get_profile_image, size: '200x200', class: "rounded-circle border", alt: "プロフィール画像" %>
       </div>
 
       <!-- ユーザー名 -->
@@ -14,7 +14,7 @@
       <!-- フォローボタン or 編集ボタン -->
       <div class="d-flex justify-content-center align-items-center mb-4">
         <% if current_user == @user %>
-          <%= link_to "プロフィールを編集", edit_public_user_path(current_user), class: "btn btn-outline-primary mx-2" %>
+          <%= link_to "プロフィールを編集(退会)", edit_public_user_path(current_user), class: "btn btn-outline-primary mx-2" %>
           <%= link_to "投稿する", new_public_post_path, class: "btn btn-primary mx-2" %>
         <% else %>
           <div id="follow_button">
@@ -81,9 +81,62 @@
 
         <!-- 評価タブ -->
         <div class="tab-pane fade" id="reviews" role="tabpanel">
-          <% @user.reviews.each do |review| %>
-            <p><%= review %></p>
-          <% end %>
+          <div class="list-group mb-5">
+            <% if @user.reviews.any? %>
+              <% @user.reviews.each do |review| %>
+                <div class="list-group-item mb-3 border rounded shadow-sm p-3">
+                  <div class="align-items-center mb-2">
+                    <% if review.post.present? %>
+                      <h5 class="mb-0 mr-2">
+                        <%= link_to review.post.title, public_post_path(review.post), class: "font-weight-bold" %>
+                      </h5>
+                    <% else %>
+                      <span class="text-muted mr-2">削除された投稿</span>
+                    <% end %>
+
+                    <small class="text-muted">
+                      投稿者：
+                      <% if review.post&.user.present? %>
+                        <%= link_to review.post.user.username, public_user_path(review.post.user) %>
+                      <% else %>
+                        <span class="text-muted">退会済みユーザー</span>
+                      <% end %>
+                    </small>
+
+                    <!-- 星評価表示 -->
+                    <div class="review-stars ml-2">
+                      <% 1.upto(5) do |i| %>
+                        <% if i <= review.star.to_i %>
+                          <i class="fa-solid fa-star" style="color: gold;"></i>
+                        <% else %>
+                          <i class="fa-regular fa-star" style="color: #ccc;"></i>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <!-- レビュー本文 -->
+                  <p class="mb-1"><%= review.body %></p>
+
+                  <!-- 投稿者情報 -->
+                  
+
+                  <!-- 削除ボタン（自分のレビューのみ） -->
+                  <% if review.user == current_user %>
+                    <div class="text-right mt-2">
+                      <%= link_to "削除",
+                                  public_post_review_path(review.post, review),
+                                  method: :delete,
+                                  data: { confirm: "このレビューを削除しますか？" },
+                                  class: "btn btn-sm btn-outline-danger" %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-muted">まだレビューはありません。</p>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

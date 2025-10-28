@@ -33,6 +33,17 @@ body {
   right: 1rem;
 }
 
+.comment-fixed {
+  position: fixed;
+  bottom: 10rem;
+  left: 1rem;
+}
+
+.card.h-100 {
+  max-width: 800px;  /* 横幅を小さく */
+  margin: 0 auto;    /* 中央寄せ */
+}
+
 /*評価登録フォーム*/
 .star-rating input[type="radio"] {
   display: none; /* ラジオボタンは非表示 */

@@ -15,7 +15,7 @@
         
         <%= select_tag :model, options_for_select([["投稿", "post"], ["ユーザー", "user"]], params[:model]), class: "form-select me-2" %>
       
-        <%= f.submit "検索", class: "btn btn-outline-success" %>
+        <%= f.submit "検索", class: "btn btn-outline-primary" %>
       <% end %>
     </div>
 
@@ -36,10 +36,12 @@
       <ul class="navbar-nav d-flex flex-row">
         <li class="nav-item mr-4">
           <%= link_to public_notifications_path, class: "nav-link" do %>
-            <i class="fa-regular fa-bell fa-2x"></i>
-
             <% if @unread_notifications.present? %>
-              <span class="notification-badge"></span>
+              <!-- 未読通知あり → 震えるベル（ -->
+              <i class="fa-solid fa-bell fa-shake fa-2x"></i>
+            <% else %>
+              <!-- 未読通知なし → 通常ベル-->
+              <i class="fa-regular fa-bell fa-2x"></i>
             <% end %>
           <% end %>
         </li>
