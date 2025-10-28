@@ -1,20 +1,47 @@
 <%= render "public/header1" %>
-<h1>履歴</h1>
-<% @periods.each do |period| %>
-  <div class="period">
-    <h3><%= period.start_date %> 〜 <%= period.end_date %></h3>
-    <% if period.categories.any? %>
-      <ul>
+<div class="container justify-content-center">
+  <h5 class="my-4 text-center bg-light">
+   <i class="fa-solid fa-bullhorn mr-2 bullhorn-css"></i>カテゴリをクリックして支出一覧を見る
+  </h5>
+  <h1 class="my-4 text-center">各期間のカテゴリ一覧</h1>
+  <% @periods.each do |period| %>
+    <div class="period row mb-5 d-flex flex-wrap border border-secondary rounded">
+      <div class="col-12  p-0 card border-secondary">
+        <div class="card-header text-center card-header-color">
+          <h3>
+            <%= period.start_date %> 〜 <%= period.end_date %>
+            <%= link_to edit_public_period_path(period), class:"btn btn-warning" do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+            <%= link_to public_period_path(period), method: :delete,
+                                data: {confirm: "本当に削除しますか？"},
+                                class:"btn btn-danger" do %>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+
+      <% if period.categories.any? %>
         <% period.categories.each do |category| %>
-          <li>
-            <%= link_to category.category_name, public_period_path(period), class:"btn btn-primary" %>
-            <%= link_to "編集", edit_public_category_path(category) %>
-            <%= link_to "削除", public_category_path(category), method: :delete,
+          <div class="col-4 card-body">
+            <div class="card border-secondary card-header-color">
+              <div class="card-body">
+                <p><%= link_to category.category_name, public_period_path(period), class:"m-0 btn btn-success" %></p>
+                残高<%= category.budget - category.expenses.where(period_id: period.id).sum(:amount) %> 円 <br>
+                <%= link_to edit_public_category_path(category), class:"mt-2 btn btn-warning btn-sm" do %>
+                  <i class="fa-solid fa-pen"></i>
+                <% end %>
+                <%= link_to public_category_path(category), method: :delete,
                             data: {confirm: "本当に削除しますか？"},
-                            class:"btn btn-danger" %>
-          </li>
+                            class:"mt-2 btn btn-danger btn-sm" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
         <% end %>
-      </ul>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
