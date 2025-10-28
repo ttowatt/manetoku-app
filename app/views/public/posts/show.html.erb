@@ -16,7 +16,7 @@
 
   <div class="card-body d-flex">
     <!-- いいねボタンと数 -->
-        <%= render 'public/posts/post_like', post: post %>
+        <%= render 'public/posts/post_like', post: @post %>
 
     <p>
       <%= link_to public_post_comments_path(@post) do %>
@@ -27,7 +27,7 @@
     <% avg_star = @post.reviews.average(:star) || 0 %>
     <p><i class="fa-solid fa-star"></i> <%= avg_star.round(1) %> / 5 (<%= @post.reviews.count %>件)</p>
 
-    <% if post.user != current_user %>
+    <% if @post.user != current_user %>
       <%= link_to "評価する", new_public_post_review_path(@post) %>
       <%= link_to "評価一覧", public_post_reviews_path(@post) %>
     <% end %>

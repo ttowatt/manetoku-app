@@ -7,9 +7,14 @@
     <% end %>
     <div class="card-body text-left">
       <p class="mb-1 btn btn-success"><%= post.category %></p>
+      <% if post.user.present? %>
+        <%= link_to post.user.username, public_user_path(post.user) %>
+      <% else %>
+        <span class="text-muted">退会したユーザー</span>
+      <% end %>
       <h5 class="card-title mb-2"><%= post.title %></h5>
       <p class="card-text">
-        <%= post.body %>
+        <%= truncate(post.body, length: 11) %>
         <%= link_to "詳細を見る", public_post_path(post), class:"btn btn-link" %>
       </p>
       <div class="d-flex align-items-center mt-3">
