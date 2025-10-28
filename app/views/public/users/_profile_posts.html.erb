@@ -1,0 +1,33 @@
+<div class="col-md-6 mb-4">
+  <div class="card h-100 shadow-sm">
+    <% if post.post_image.attached? %>
+      <%= image_tag post.post_image, class: "card-img-top", alt: "投稿画像" %>
+    <% else %>
+      <%= image_tag "no_image.jpg", class: "card-img-top" %>
+    <% end %>
+    <div class="card-body text-left">
+      <p class="mb-1 btn btn-success"><%= post.category %></p>
+      <h5 class="card-title mb-2"><%= post.title %></h5>
+      <p class="card-text">
+        <%= post.body %>
+        <%= link_to "詳細を見る", public_post_path(post), class:"btn btn-link" %>
+      </p>
+      <div class="d-flex align-items-center mt-3">
+        <span class="d-flex align-items-center mr-2">
+          <i class="fa-regular fa-heart mr-1"></i>
+          <%= post.post_likes.count %>
+        </span>
+
+        <% avg_star = post.reviews.average(:star) || 0 %>
+        <p class="mb-0 mr-3 d-flex align-items-center">
+          <i class="fa-solid fa-star star-color me-1"></i>
+          <%= avg_star.round(1) %> / 5 (<%= post.reviews.count %>件)
+        </p>
+
+        <%= link_to public_post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
+          <i class="fa-regular fa-comment fa-2x"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

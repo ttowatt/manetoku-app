@@ -1,14 +1,26 @@
-<div class="container">
-  <div class="row">
-    <p>アプリ説明文</p>
-  </div>
-  <div class="row">
+<div class="card header-footer-color min-vh-100 d-flex flex-column justify-content-center align-items-center text-center">
+  <%= image_tag "まねトク-logo.png", size:'500x500', alt: "ロゴ画像", style: "opacity: 0.3;" %>
+
+  <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
+    <h1 class="card-title mb-5 text-primary font-weight-bold">まねトクへようこそ！！</h1>
+    <p class="card-text mb-4 lead font-weight-bold text-secondary">家計管理 × 節約術 × SNS</p>
+    <p class="mb-3 font-weight-bold text-primary">「節約術を共有しながら家計管理を楽しく続ける」</p>
+    <p class="card-text mb-5 text-dark">
+      新しい形の家計簿SNSアプリです。<br>
+      シンプルな家計簿と節約術コミュニティを通して、<br>
+      無理なく支出を見える化し、<br>
+      お金の管理を改善しながら楽しく続けることができます。
+    </p>
+    
     <% if user_signed_in? %>
-      <%= link_to "はじめよう！", top_path, class: "bth" %>
+      <%= link_to "はじめよう！", top_path, class: "btn btn-primary btn-lg mx-2" %>
     <% else %>
-      <%= link_to "新規登録", new_user_session_path, class: "bth" %>
-      <%= link_to "ログイン", new_user_registration_path, class: "bth" %>
+      <div class="d-flex">
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary btn-lg mx-2" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary btn-lg mx-2" %>
+      </div>
     <% end %>
   </div>
 </div>
+
 
