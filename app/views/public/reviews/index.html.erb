@@ -1,22 +1,42 @@
 <%= render "public/header2" %>
-<h2><%= link_to @post.user.username, public_user_path(@post.user) %></h2>
-<h2><%= @post.title %> のレビュー一覧</h2>
+<h2 class="mb-4 text-center">
+  「<%= @post.title %>」のレビュー一覧
+</h2>
 
-<% @reviews.each do |review| %>
-  <div class="review-item">
-    <strong><%= review.user.username %></strong>：
-    
-    <!-- レビューの星 -->
-    <span class="review-stars">
-      <% 1.upto(5) do |i| %>
-        <% if i <= review.star.to_i %>
-          <i class="fa-solid fa-star" style="color: gold;"></i>
-        <% else %>
-          <i class="fa-regular fa-star" style="color: #ccc;"></i>
+<div class="list-group mb-5">
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <div class="list-group-item mb-3 border rounded shadow-sm p-3">
+        <div class="d-flex align-items-center mb-2">
+          <strong>
+            <%= link_to review.user.username, public_user_path(review.user) %>
+          </strong>
+
+          <!-- 星評価表示 -->
+          <div class="review-stars">
+            <% 1.upto(5) do |i| %>
+              <% if i <= review.star.to_i %>
+                <i class="fa-solid fa-star" style="color: gold;"></i>
+              <% else %>
+                <i class="fa-regular fa-star" style="color: #ccc;"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <p class="mb-1"><%= review.body %></p>
+
+        <% if review.user == current_user %>
+          <div class="text-right mt-2">
+            <%= link_to "削除", public_post_review_path(@post, review),
+                        method: :delete,
+                        data: { confirm: "このレビューを削除しますか？" },
+                        class: "btn btn-sm btn-outline-danger" %>
+          </div>
         <% end %>
-      <% end %>
-    </span>
-
-    <p><%= review.body %></p>
-  </div>
-<% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-muted">まだレビューはありません。</p>
+  <% end %>
+</div>

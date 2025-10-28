@@ -1,15 +1,25 @@
 <%= render "public/header2" %>
-<h3>レビューを書く</h3>
-<div class="star-rating">
+<div class="container py-5 d-flex justify-content-center">
   <%= form_with model: @review, url: public_post_reviews_path(@post), local: true do |f| %>
-    <% 5.downto(1) do |i| %>
-      <%= f.radio_button :star, i, id: "star#{i}" %>
-      <label for="star<%= i %>">
-        <i class="fa-regular fa-star"></i>
-      </label>
-    <% end %>
+    
 
-    <%= f.text_area :body, placeholder: "コメント" %>
-    <%= f.submit "レビューする" %>
+    <div class="card border-dark", style="width: 400px;">
+      <div class="card-header text-center card-header-color">
+        <h3>評価を書く</h3>
+      </div>
+      <div class="card-body text-center">
+        <div class="star-rating">
+          <% 5.downto(1) do |i| %>
+            <%= f.radio_button :star, i, id: "star#{i}" %>
+            <label for="star<%= i %>">
+              <i class="fa-regular fa-star fa-2x"></i>
+            </label>
+          <% end %>
+        </div>
+          <h3 class="card-title"><%= f.label :body, "本文" %></h3>
+          <p class="card-text"><%= f.text_area :body, placeholder: "コメント", class:"form-control w-75 mx-auto" %></p>
+          <%= f.submit "評価する", class: "btn btn-primary" %>
+      </div>
+    </div>
   <% end %>
 </div>
