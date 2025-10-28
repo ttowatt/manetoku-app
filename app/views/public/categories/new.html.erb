@@ -1,5 +1,5 @@
 <%= render "public/header1" %>
-<div class="container">
+<div class="container py-5 d-flex justify-content-center">
   <%= form_with model: @category, url: public_categories_path, local: true do |f| %>
     <% if @category.errors.any? %>
       <div class="alert alert-danger">
@@ -12,14 +12,19 @@
       </div>
     <% end %>
 
-    <div class="row">
-      <div class="col">
-        <%= f.label :category_name, "カテゴリ名" %><br>
-        <%= f.text_field :category_name, autocomplete: "off" %><br>
-
-        <%= f.label :budget, "予算/残高" %><br>
-        <%= f.text_field :budget, inputmode: "numeric", pattern: "[0-9]*", autocomplete: "off" %> 円<br>
+    <div class="card border-dark", style="width: 400px;">
+      <div class="card-header text-center card-header-color">
+        <h1 class="mb-0 font-weight-bold">カテゴリの追加</h1>
+      </div>
+      <div class="card-body text-center">
+        <h3 class="card-title"><%= f.label :category_name, "カテゴリ名" %></h3>
+        <p class="card-text"><%= f.text_field :category_name, autocomplete: "off" %></p>
+        <h3 class="card-title"><%= f.label :budget, "予算/残高" %></h3>
+        <p class="card-text">
+          <%= f.text_field :budget, inputmode: "numeric", pattern: "[0-9]*", autocomplete: "off" %> 円
+        </p>
         <%= f.submit "登録", class: "btn btn-primary" %>
+        <%= link_to "戻る", top_path, class: "btn btn-secondary" %>
       </div>
     </div>
   <% end %>

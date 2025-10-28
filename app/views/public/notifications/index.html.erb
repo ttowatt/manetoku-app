@@ -1,16 +1,33 @@
 <%= render "public/header2" %>
-<h2>通知一覧</h2>
+<h2 class="mb-4">通知一覧</h2>
 
-<%= link_to "すべて既読にする", mark_all_as_read_public_notifications_path, method: :patch, class: "btn btn-primary" %>
+<div class="mb-3">
+  <%= link_to "すべて既読にする", mark_all_as_read_public_notifications_path,
+              method: :patch,
+              class: "btn btn-primary btn-sm" %>
+</div>
 
-<ul>
+<div class="list-group">
   <% @notifications.each do |notification| %>
-    <li class="<%= 'unread' unless notification.is_read %>">
-      <%= link_to notification.visitor.username, public_user_path(notification.visitor) %> さんが
-      <%= link_to '新しい投稿', public_post_path(notification.post) %> をしました。
+    <div class="list-group-item d-flex align-items-center
+                <%= 'list-group-item-warning' unless notification.is_read %>">
+      
+      <div>
+        <%= link_to notification.visitor.username, public_user_path(notification.visitor), class: "font-weight-bold" %> さんが
+        <%= link_to '新しい投稿', public_post_path(notification.post), class: "text-primary" %> をしました。
+      </div>
+
       <% unless notification.is_read %>
-        <%= link_to "既読にする", mark_as_read_public_notification_path(notification), method: :patch, class: "btn btn-sm btn-outline-secondary" %>
+        <div>
+          <%= link_to "既読にする", mark_as_read_public_notification_path(notification),
+                      method: :patch,
+                      class: "btn btn-sm btn-outline-secondary" %>
+        </div>
       <% end %>
-    </li>
+    </div>
   <% end %>
-</ul>
+
+  <% if @notifications.empty? %>
+    <p class="text-muted mt-3">通知はありません。</p>
+  <% end %>
+</div>

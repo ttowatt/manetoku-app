@@ -1,5 +1,50 @@
 @use '~bootstrap/scss/bootstrap';
 
+body {
+  padding-top: 70px;     /* ヘッダーとフッターに埋まってしまうのを防止 */
+  padding-bottom: 180px;
+}
+
+.min-vh-100 {
+  min-height: 100vh; /* 画面の高さ全体をカバー */
+}
+
+.header-footer-color {
+  background: linear-gradient(180deg, #89d957, #c9e265) ;
+}
+
+.card-header-color {
+  background: linear-gradient(200deg, #89d957, #c9e265) ;
+}
+
+.bullhorn-css{
+  color: blue;
+  font-size: 24px;
+}
+
+.star-color {
+  color: gold;
+}
+
+/*カテゴリ追加・投稿ボタンの左上固定（スクロールにも対応）*/
+.fixed-top-right {
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+}
+
+.comment-fixed {
+  position: fixed;
+  bottom: 10rem;
+  left: 1rem;
+}
+
+.card.h-100 {
+  max-width: 800px;  /* 横幅を小さく */
+  margin: 0 auto;    /* 中央寄せ */
+}
+
+/*評価登録フォーム*/
 .star-rating input[type="radio"] {
   display: none; /* ラジオボタンは非表示 */
 }
@@ -18,3 +63,4 @@
   direction: rtl;
   unicode-bidi: bidi-override;
 }
+

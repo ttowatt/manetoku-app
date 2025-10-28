@@ -4,19 +4,19 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root "homes#top"
-  get "about", to: "homes#about", as: "about"
+  root "homes#about"
+  get "top", to: "homes#top", as: "top"
 
   namespace :public do
     get 'search', to: 'searches#search', as: 'search'
     get 'users/withdraw', to: 'users#withdraw_confirm', as: 'withdraw_confirm'
     delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'
-    resources :users, only: [:index, :edit, :show, :update, :destroy]do
+    resources :users, only: [:edit, :show, :update, :destroy]do
       resource :follow, only: [:create, :destroy]
     end
 
     resources :posts, only: [:new, :index, :show, :create, :destroy] do
-      resources :reviews, only: [:index, :new, :show, :create, :destroy]
+      resources :reviews, only: [:index, :new, :create, :destroy]
       resources :post_likes, only: [:create, :destroy]
       resources :comments, only: [:index, :create, :destroy] do
         resources :comment_likes, only: [:create, :destroy]

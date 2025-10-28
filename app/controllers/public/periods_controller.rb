@@ -30,7 +30,7 @@ class Public::PeriodsController < ApplicationController
       end
   
       flash[:notice] = "期間が作成されました（前のカテゴリを引き継ぎました）"
-      redirect_to root_path
+      redirect_to top_path
     else
       flash.now[:alert] = "期間の作成に失敗しました"
       render "homes/top"
@@ -44,7 +44,7 @@ class Public::PeriodsController < ApplicationController
   def update
     @period = current_user.periods.find(params[:id])
     if @period.update(period_params)
-      redirect_to root_path, notice: "カテゴリ名を更新しました"
+      redirect_to top_path, notice: "カテゴリ名を更新しました"
     else
       render "edit"
     end
@@ -54,7 +54,7 @@ class Public::PeriodsController < ApplicationController
     @period = current_user.periods.find(params[:id])
     @period.destroy
     flash[:notice] = "期間を削除しました"
-    redirect_to root_path
+    redirect_to top_path
   end
 
   private
