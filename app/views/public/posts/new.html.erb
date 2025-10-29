@@ -13,17 +13,17 @@
   <% end %>
 
   <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      <div class="card h-100 shadow-sm">
+    <div class="col-8 mb-4">
+      <div class="card shadow-sm">
         <div class="card-header card-header-color">
           <%= f.label :post_image, "投稿画像" %><br>
           <%= f.file_field :post_image, accept: "image/*" %>
         </div>
         <div class="card-image">
           <% if @post.post_image.attached? %>
-            <%= image_tag @post.post_image, class: "card-img-top", alt: "投稿画像" %>
+            <%= image_tag @post.post_image, class: "card-img-size", alt: "投稿画像" %>
           <% else %>
-            <%= image_tag "no_image.jpg", class: "card-img-top", alt: "画像なし" %>
+            <%= image_tag "no_image.jpg", class: "card-img-size", alt: "画像なし" %>
           <% end %>
         </div>
         <div class="card-body text-center">
