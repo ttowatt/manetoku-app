@@ -35,13 +35,11 @@
     <div>
       <ul class="navbar-nav d-flex flex-row">
         <li class="nav-item mr-4">
-          <%= link_to public_notifications_path, class: "nav-link" do %>
+          <%= link_to public_notifications_path, class: "nav-link position-relative" do %>
+            <i class="fa-regular fa-bell fa-2x"></i>
+            
             <% if @unread_notifications.present? %>
-              <!-- 未読通知あり → 震えるベル（ -->
-              <i class="fa-solid fa-bell fa-shake fa-2x"></i>
-            <% else %>
-              <!-- 未読通知なし → 通常ベル-->
-              <i class="fa-regular fa-bell fa-2x"></i>
+              <span class="notification-badge"></span>
             <% end %>
           <% end %>
         </li>

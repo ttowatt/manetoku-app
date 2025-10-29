@@ -1,9 +1,9 @@
 <div class="col-md-6 mb-4">
-  <div class="card h-100 shadow-sm">
+  <div class="card shadow-sm">
     <% if post.post_image.attached? %>
-      <%= image_tag post.post_image, class: "card-img-top", alt: "投稿画像" %>
+      <%= image_tag post.post_image, class: "card-img-size", alt: "投稿画像" %>
     <% else %>
-      <%= image_tag "no_image.jpg", class: "card-img-top" %>
+      <%= image_tag "no_image.jpg", class: "card-img-size" %>
     <% end %>
     <div class="card-body text-left">
       <p class="mb-1 btn btn-success"><%= post.category %></p>
