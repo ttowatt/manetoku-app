@@ -1,9 +1,9 @@
 <%= render "public/header2" %>
 <h2 class="mb-4 text-center">
-  「<%= @post.title %>」のレビュー一覧
+  「<%= link_to @post.title, public_post_path(@post) %>」の評価一覧
 </h2>
 
-<div class="list-group mb-5">
+<div class="list-group mb-5 w-50 mx-auto">
   <% if @reviews.any? %>
     <% @reviews.each do |review| %>
       <div class="list-group-item mb-3 border rounded shadow-sm p-3">
@@ -37,6 +37,6 @@
       </div>
     <% end %>
   <% else %>
-    <p class="text-muted">まだレビューはありません。</p>
+    <p class="text-center text-muted">まだレビューはありません。</p>
   <% end %>
 </div>
