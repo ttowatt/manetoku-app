@@ -26,6 +26,20 @@ body {
   color: gold;
 }
 
+
+.notification-badge {
+  position: absolute;
+  top: 0;       /* 親からの位置 */
+  right: 0;     /* 親からの位置 */
+  width: 12px;  /* 丸のサイズ */
+  height: 12px;
+  background-color: red; /* 赤色 */
+  border-radius: 50%;    /* 丸くする */
+  border: 2px solid white; /* 白い縁でアイコンから浮き出す */
+}
+
+
+
 /*カテゴリ追加・投稿ボタンの左上固定（スクロールにも対応）*/
 .fixed-top-right {
   position: fixed;
@@ -39,9 +53,12 @@ body {
   left: 1rem;
 }
 
-.card.h-100 {
-  max-width: 800px;  /* 横幅を小さく */
-  margin: 0 auto;    /* 中央寄せ */
+.card-img-size {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* ← 正方形に統一 */
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /*評価登録フォーム*/
