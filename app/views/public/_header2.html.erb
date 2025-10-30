@@ -35,8 +35,8 @@
     <div>
       <ul class="navbar-nav d-flex flex-row">
         <li class="nav-item mr-4">
-          <%= link_to public_notifications_path, class: "nav-link position-relative" do %>
-            <i class="fa-regular fa-bell fa-2x"></i>
+          <%= link_to public_notifications_path, class: "nav-link" do %>
+            <i class="fa-regular fa-bell fa-2x position-relative"></i>
             
             <% if @unread_notifications.present? %>
               <span class="notification-badge"></span>
