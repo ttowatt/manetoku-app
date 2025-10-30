@@ -17,7 +17,7 @@
           <% end %>
         </div>
           <h3 class="card-title"><%= f.label :body, "本文" %></h3>
-          <p class="card-text"><%= f.text_area :body, placeholder: "コメント", class:"form-control w-75 mx-auto" %></p>
+          <p class="card-text"><%= f.text_area :body, placeholder: "コメント", class:"form-control w-75 mx-auto", rows: 6 %></p>
           <%= f.submit "評価する", class: "btn btn-primary" %>
       </div>
     </div>
