@@ -6,10 +6,17 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :post_likes, dependent: :destroy
-  has_many :notifications, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy  
 
   validates :title, :body, :category, presence: true
 
+  after_create do
+    user.followers.each do |follower|
+      notifications.create(user_id: follower.id)
+    end
+  end
+
+  
   def get_post_image
     if post_image.attached?
       post_image
@@ -31,17 +38,4 @@ class Post < ApplicationRecord
   #検索機能
   after_create :create_notifications_to_followers
 
-  private
-
-  def create_notifications_to_followers
-    # 投稿者をフォローしている全員に通知を作成
-    user.followers.each do |follower|
-      Notification.create!(
-        visitor_id: user.id,     # 投稿者
-        visited_id: follower.id, # 通知を受け取る人
-        post_id: id,
-        is_read: false
-      )
-    end
-  end
 end
