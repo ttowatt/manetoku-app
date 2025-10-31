@@ -36,8 +36,6 @@ class ApplicationController < ActionController::Base
 
   #未読通知
   def set_unread_notifications
-    if user_signed_in?
       @unread_notifications = current_user.reverse_notifications.where(is_read: false)
-    end
   end
 end
