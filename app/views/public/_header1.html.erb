@@ -23,16 +23,21 @@
   <nav class="navbar">
     <div>
       <ul class="navbar-nav d-flex flex-row">
-        <li class="nav-item mr-4">
-          <%= link_to public_notifications_path, class: "nav-link" do %>
-            <% if @unread_notifications.present? %>
-              <!-- 未読通知あり → 震えるベル（ -->
-              <i class="fa-solid fa-bell fa-shake fa-2x"></i>
+        <li class="nav-item  dropdown mr-4">
+          <a class="nav-link  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-regular fa-bell fa-2x"></i>
+            <span class="badge badge-danger mb-4"><%= current_user.notifications.where(read: false).count %></span>
+          </a>
+          <div class="dropdown-menu menu-position" aria-labelledby="dropdownMenuButton">
+            <% if current_user.notifications.where(read: false).any? %>
+              <small class="dropdown-item disabled">直近5件の未読の通知を表示しています</small>
+              <% current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification| %>
+                <%= link_to notification_message(notification), notification_path(notification), method: :patch, class: "dropdown-item" %>
+              <% end %>
             <% else %>
-              <!-- 未読通知なし → 通常ベル-->
-              <i class="fa-regular fa-bell fa-2x"></i>
+              <span class="dropdown-item disabled">未読の通知はありません</span>
             <% end %>
-          <% end %>
+          </div>
         </li>
         <li class="nav-item">
           <%= link_to '<i class="fa-solid fa-circle-user fa-2x"></i>'.html_safe, public_user_path(current_user), class: "nav-link" %>
