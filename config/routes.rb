@@ -22,16 +22,8 @@ Rails.application.routes.draw do
         resources :comment_likes, only: [:create, :destroy]
       end
     end
-    
-    resources :notifications, only: [:index] do
-      member do
-        patch :mark_as_read
-      end
-      collection do
-        patch :mark_all_as_read
-      end
-    end
 
+    resources :notifications, only: [:update]
     resources :categories, only: [:new, :edit, :create, :update, :destroy]
     resources :expenses, only: [:edit, :create, :update, :destroy]
     resources :periods, only: [:index, :show, :edit, :create, :update, :destroy]

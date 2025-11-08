@@ -26,19 +26,12 @@ body {
   color: gold;
 }
 
-
-.notification-badge {
-  position: absolute;
-  top: 0;       /* 親からの位置 */
-  right: 0;     /* 親からの位置 */
-  width: 12px;  /* 丸のサイズ */
-  height: 12px;
-  background-color: red; /* 赤色 */
-  border-radius: 50%;    /* 丸くする */
-  border: 2px solid white; /* 白い縁でアイコンから浮き出す */
+.menu-position {
+  position: absolute !important;
+  right: 100%;
+  left: auto;
+  top: 10%;
 }
-
-
 
 /*カテゴリ追加・投稿ボタンの左上固定（スクロールにも対応）*/
 .fixed-top-right {
