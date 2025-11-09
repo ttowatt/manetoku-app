@@ -26,7 +26,7 @@
         <li class="nav-item  dropdown mr-4">
           <a class="nav-link  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa-regular fa-bell fa-2x"></i>
-            <span class="badge badge-danger mb-4"><%= current_user.notifications.where(read: false).count %></span>
+            <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
           </a>
           <div class="dropdown-menu menu-position" aria-labelledby="dropdownMenuButton">
             <% if current_user.notifications.where(read: false).any? %>
