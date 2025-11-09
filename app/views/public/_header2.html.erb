@@ -40,6 +40,7 @@
             <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
           </a>
           <div class="dropdown-menu menu-position" aria-labelledby="dropdownMenuButton">
+
             <% if current_user.notifications.where(read: false).any? %>
               <small class="dropdown-item disabled">直近5件の未読の通知を表示しています</small>
               <% current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification| %>

@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   validates :title, :body, :category, presence: true
 
   private
-
+  
   after_create do
     user.followers.each do |follower|
       notifications.create(user_id: follower.id)
@@ -36,5 +36,4 @@ class Post < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
-
 end
