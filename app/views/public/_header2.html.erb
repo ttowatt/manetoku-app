@@ -35,11 +35,12 @@
     <div>
       <ul class="navbar-nav d-flex flex-row">
         <li class="nav-item  dropdown mr-4">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-regular fa-bell"></i>
+          <a class="nav-link  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-regular fa-bell fa-2x"></i>
             <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          </a>
+          <div class="dropdown-menu menu-position" aria-labelledby="dropdownMenuButton">
+
             <% if current_user.notifications.where(read: false).any? %>
               <small class="dropdown-item disabled">直近5件の未読の通知を表示しています</small>
               <% current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification| %>
@@ -54,7 +55,8 @@
           <%= link_to '<i class="fa-solid fa-circle-user fa-2x"></i>'.html_safe, public_user_path(current_user), class: "nav-link" %>
         </li>
       </ul>
-    </nav>
+    </div>
+  </nav>
 </header>
 <div>
   <% if notice %>

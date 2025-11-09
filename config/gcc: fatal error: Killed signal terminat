@@ -1,0 +1,5 @@
+gcc: fatal error: Killed signal terminated program cc1
+compilation terminated.
+make[1]: *** [Makefile:10364: MagickWand/libMagickWand_7_Q16HDRI_la-convert.lo] Error 1
+make[1]: Leaving directory '/home/ubuntu/ImageMagick-7.1.1-5'
+make: *** [Makefile:6211: all] Error 2
