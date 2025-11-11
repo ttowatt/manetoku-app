@@ -23,6 +23,8 @@ jobs:
             cd manetoku-app &&
             git pull origin main &&
             ~/.rbenv/shims/bundle install &&
+            node -v &&
+            yarn -v &&
             ~/.rbenv/shims/bundle exec rails assets:precompile RAILS_ENV=production &&
             ~/.rbenv/shims/bundle exec rails db:migrate RAILS_ENV=production &&
             if [[ -e tmp/pids/puma.pid ]]; then
