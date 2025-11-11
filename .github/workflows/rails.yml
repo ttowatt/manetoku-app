@@ -22,9 +22,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
             cd manetoku-app &&
             git pull origin main &&
+            sudo su - ubuntu &&
             ~/.rbenv/shims/bundle install &&
-            node -v &&
-            yarn -v &&
             ~/.rbenv/shims/bundle exec rails assets:precompile RAILS_ENV=production &&
             ~/.rbenv/shims/bundle exec rails db:migrate RAILS_ENV=production &&
             if [[ -e tmp/pids/puma.pid ]]; then
