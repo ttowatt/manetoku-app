@@ -10,8 +10,6 @@ class Post < ApplicationRecord
 
   validates :title, :body, :category, presence: true
 
-  after_destroy :purge_post_image
-
   private
 
   after_create do
@@ -20,12 +18,6 @@ class Post < ApplicationRecord
     end
   end
 
-   # 投稿画像を削除(元画像削除,リサイズ済みも自動で削除)
-   def purge_post_image
-     post_image.purge if post_image.attached?
-   end
-
-  
   def get_post_image
     if post_image.attached?
       post_image
