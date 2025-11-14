@@ -10,7 +10,7 @@ class Post < ApplicationRecord
 
   validates :title, :body, :category, presence: true
 
-private
+  private
 
   after_create do
     user.followers.each do |follower|
@@ -18,7 +18,6 @@ private
     end
   end
 
-  
   def get_post_image
     if post_image.attached?
       post_image
