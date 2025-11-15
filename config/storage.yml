@@ -13,6 +13,7 @@ amazon:
   secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_S3_BUCKET_NAME'] %>
+  s3_host: <%= ENV['AWS_S3_HOST_NAME'] %> # CloudFrontディストリビューションのドメインを追加
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
