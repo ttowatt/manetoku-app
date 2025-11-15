@@ -30,6 +30,21 @@ manetoku = User.find_or_create_by!(email: ENV.fetch("PUBLIC_EMAIL")) do |user|
   )
 end
 
+ludo = User.find_or_create_by!(email: ENV.fetch("USER_EMAIL")) do |user|
+  user.last_name = "斎藤"
+  user.first_name = "久夫"
+  user.last_name_kana = "サイトウ"
+  user.first_name_kana = "ヒサオ"
+  user.phone_number = "09048489696"
+  user.username = "ludo"
+  user.introduction = "hello japan"
+  user.password = ENV.fetch("USER_PASSWORD")
+  user.profile_image.attach(
+    io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"),
+    filename: "sample-user4.png"
+  )
+end
+
 period = Period.find_or_create_by!(
   start_date: Date.new(2025,10,26),
   end_date: Date.new(2025,10,27),
