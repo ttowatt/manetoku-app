@@ -26,12 +26,12 @@ class ApplicationController < ActionController::Base
 
   # ユーザー側（public 名前空間）のコントローラなら true
   def user_controller?
-    self.class.name.deconstantize == Public
+    controller_path.start_with?("public/")
   end
 
   # 管理者側（admins 名前空間）のコントローラなら true
   def admin_controller?
-    self.class.name.deconstantize == Admins
+    controller_path.start_with?("admins/")
   end
 
   #未読通知
