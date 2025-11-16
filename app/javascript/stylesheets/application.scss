@@ -1,12 +1,7 @@
 @use '~bootstrap/scss/bootstrap';
-
-body {
-  padding-top: 70px;     /* ヘッダーとフッターに埋まってしまうのを防止 */
-  padding-bottom: 180px;
-}
-
-.min-vh-100 {
-  min-height: 100vh; /* 画面の高さ全体をカバー */
+.view-full {
+  width: 100vw;
+  height: 100vh;
 }
 
 .header-footer-color {
@@ -38,12 +33,6 @@ body {
   position: fixed;
   top: 5rem;
   right: 1rem;
-}
-
-.comment-fixed {
-  position: fixed;
-  bottom: 10rem;
-  left: 1rem;
 }
 
 .card-img-size {
