@@ -14,6 +14,7 @@ Admin.find_or_create_by!(email: 'admin@example.com') do |admin|
   admin.password_confirmation = ENV.fetch("ADMIN_PASSWORD")
 end
 
+<<<<<<< HEAD
 ludo = User.find_or_create_by!(email: "ludo@example.com") do |user|
   user.last_name = "斎藤"
   user.first_name = "久夫"
@@ -23,12 +24,24 @@ ludo = User.find_or_create_by!(email: "ludo@example.com") do |user|
   user.username = "ludo"
   user.introduction = "hello japan"
   user.password = "password456"
+=======
+lucas = User.find_or_create_by!(email: "lucas@example.com") do |user|
+  user.last_name = "佐藤"
+  user.first_name = "道子"
+  user.last_name_kana = "サトウ"
+  user.first_name_kana = "ミチコ"
+  user.phone_number = "09098765432"
+  user.username = "Lucas"
+  user.introduction = "hello"
+  user.password = "password1"
+>>>>>>> e621dfd (Fix merge conflict)
   user.profile_image.attach(
     io: File.open("#{Rails.root}/db/fixtures/sample-user3.jpg"),
     filename: "sample-user3.jpg"
   )
 end
 
+<<<<<<< HEAD
 post = Post.find_or_create_by!(title: "革命的", user_id: ludo.id) do |p|
   p.category = "交際費"
   p.body = "知らないと損！"
@@ -104,5 +117,16 @@ Notification.find_or_create_by!(
   is_read: true
 )
 
+=======
+Post.find_or_create_by!(title: "節約術") do |post|
+  post.body = "自慢の節約術"
+  post.post_image.attach(
+    io: File.open("#{Rails.root}/db/fixtures/sample-post3.jpg"),
+    filename: "sample-post3.jpg"
+  )
+  post.user = lucas
+end
+
+>>>>>>> e621dfd (Fix merge conflict)
 puts "seedの実行が完了しました"
 
