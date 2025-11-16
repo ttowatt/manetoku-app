@@ -1,41 +1,46 @@
 <%= render "public/header2" %>
-<div class="container py-4">
-<%= form_with model: @post, url: public_posts_path, local: true do |f| %>
-  <% if @post.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(@post.errors.count, "件のエラー") %>があります：</h4>
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="row justify-content-center">
-    <div class="col-8 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-header card-header-color">
-          <%= f.label :post_image, "投稿画像" %><br>
-          <%= f.file_field :post_image, accept: "image/*" %>
-        </div>
-        <div class="card-image">
-          <% if @post.post_image.attached? %>
-            <%= image_tag @post.post_image, class: "card-img-size", alt: "投稿画像" %>
-          <% else %>
-            <%= image_tag "no_image.jpg", class: "card-img-size", alt: "画像なし" %>
+<div class="container" style="margin-top:166px;">
+  <%= form_with model: @post, url: public_posts_path, local: true do |f| %>
+    <% if @post.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@post.errors.count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
           <% end %>
-        </div>
-        <div class="card-body text-center">
-          <h3 class="card-title"><%= f.label :category %></h3>
-          <p class="card-text"><%= f.text_field :category, placeholder: "例：食費", class:"form-control w-50 mx-auto" %></p>
-          <h3 class="card-title"><%= f.label :title %></h3>
-          <p class="card-text"><%= f.text_field :title, placeholder: "タイトル", class:"form-control w-50 mx-auto" %></p>
-          <h3 class="card-title"><%= f.label :body %></h3>
-          <p class="card-text"><%= f.text_area :body, placeholder: "本文", class: "form-control w-50 mx-auto", rows: 6 %></p>
-          <%= f.submit "新規投稿", class: "btn btn-primary" %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header card-header-color">
+            <%= f.label :post_image, "投稿画像" %><br>
+            <%= f.file_field :post_image, accept: "image/*" %>
+          </div>
+          <div class="card-image">
+            <% if @post.post_image.attached? %>
+              <%= image_tag @post.post_image, class: "card-img-size", alt: "投稿画像" %>
+            <% else %>
+              <%= image_tag "no_image.jpg", class: "card-img-size", alt: "画像なし" %>
+            <% end %>
+          </div>
+          <div class="card-body text-center">
+            <h3 class="card-title"><%= f.label :category %></h3>
+            <p class="card-text"><%= f.text_field :category, placeholder: "例：食費", class:"form-control w-50 mx-auto" %></p>
+
+            <h3 class="card-title"><%= f.label :title %></h3>
+            <p class="card-text"><%= f.text_field :title, placeholder: "タイトル", class:"form-control w-50 mx-auto" %></p>
+
+            <h3 class="card-title"><%= f.label :body %></h3>
+            <p class="card-text"><%= f.text_area :body, placeholder: "本文", class: "form-control w-50 mx-auto", rows: 6 %></p>
+
+            <%= f.submit "新規投稿", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
-</div>
+</div> 

@@ -10,19 +10,19 @@ class Post < ApplicationRecord
 
   validates :title, :body, :category, presence: true
 
-  private
-
-  after_create do
-    user.followers.each do |follower|
-      notifications.create(user_id: follower.id)
-    end
-  end
-
   def get_post_image
     if post_image.attached?
       post_image
     else
       'no_image.jpg'
+    end
+  end
+  
+  private
+
+  after_create do
+    user.followers.each do |follower|
+      notifications.create(user_id: follower.id)
     end
   end
 
