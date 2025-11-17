@@ -1,7 +1,7 @@
 class Public::PeriodsController < ApplicationController
   def index
     #新しい期間（最新のstart_date）から順に並べる
-      @periods = current_user.periods.includes(:categories).order(start_date: :desc)
+      @periods = current_user.periods.includes(:categories).order(start_date: :desc).page(params[:page]).per(10)
   end
 
   def show

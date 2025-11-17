@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
               <%= image_tag user.get_profile_image, size: "60x60", class: "rounded-circle me-3" %>
               <div>
-                <h5><%= link_to user.username, public_user_path(user), class: "text-dark fw-bold" %></h5>
+                <h5><%= link_to user.username, public_user_path(user), class: "text-primary fw-bold" %></h5>
                 <p class="mb-0 text-muted"><%= truncate(user.introduction, length: 30) %></p>
               </div>
             </div>
@@ -66,4 +66,9 @@
       <p class="text-muted">該当する結果はありません。</p>
     <% end %>
   <% end %>
+</div>
+
+<!-- ページネーション -->
+<div class="pagination">
+  <%= paginate @results %>
 </div>

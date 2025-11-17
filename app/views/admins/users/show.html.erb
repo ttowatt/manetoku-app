@@ -37,6 +37,7 @@
           <%= @user.email %>
         </li>
       </ul>
+      <%= link_to "削除", admins_user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"mt-3 btn btn-danger" %>
     </div>
   </div>
 </div>

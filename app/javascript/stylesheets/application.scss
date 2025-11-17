@@ -4,6 +4,13 @@
   height: 100vh;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;  /* ← これで中央揃え */
+  margin: 20px 0;
+  gap: 10px;
+}
+
 .header-footer-color {
   background: linear-gradient(180deg, #89d957, #c9e265) ;
 }
