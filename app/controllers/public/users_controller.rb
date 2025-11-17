@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update]
   
   def index
@@ -10,7 +10,6 @@ class Public::UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
     @posts = @user.posts
   end
   
@@ -26,7 +25,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
     @user.destroy
     reset_session  # ログアウトさせる
-    redirect_to about_path, notice: "退会が完了しました。ご利用ありがとうございました。"
+    redirect_to root_path, notice: "退会が完了しました。ご利用ありがとうございました。"
   end
 
   def withdraw_confirm

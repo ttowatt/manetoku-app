@@ -28,6 +28,21 @@ manetoku = User.find_or_create_by!(email: ENV.fetch("PUBLIC_EMAIL")) do |user|
   )
 end
 
+ludo = User.find_or_create_by!(email: ENV.fetch("USER_EMAIL")) do |user|
+  user.last_name = "斎藤"
+  user.first_name = "久夫"
+  user.last_name_kana = "サイトウ"
+  user.first_name_kana = "ヒサオ"
+  user.phone_number = "09048489696"
+  user.username = "ludo"
+  user.introduction = "hello japan"
+  user.password = ENV.fetch("USER_PASSWORD")
+  user.profile_image.attach(
+    io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"),
+    filename: "sample-user4.png"
+  )
+end
+
 period = Period.find_or_create_by!(
   start_date: Date.new(2025,10,26),
   end_date: Date.new(2025,10,27),
@@ -49,22 +64,13 @@ Expense.find_or_create_by!(
   category_id: category.id
 )
 
-# フォロー関係
-other_user = User.find_or_create_by!(email: ENV.fetch("USER_EMAIL")) do |user|
-  user.last_name = "斎藤"
-  user.first_name = "久夫"
-  user.last_name_kana = "サイトウ"
-  user.first_name_kana = "ヒサオ"
-  user.phone_number = "09048489696"
-  user.username = "ludo"
-  user.introduction = "hello japan"
-  user.password = ENV.fetch("USER_PASSWORD")
-end
+# ludoがmanetokuをフォロー
+Follow.find_or_create_by!(follower_id: ludo.id, followed_id: manetoku.id)
 
-# other_userがmanetokuをフォロー
-Follow.find_or_create_by!(follower_id: other_user.id, followed_id: manetoku.id)
+# manetokuがludoフォロー
+Follow.find_or_create_by!(follower_id: manetoku.id, followed_id: ludo.id)
 
-post = Post.find_or_create_by!(title: "革命的", user_id: manetoku.id) do |p|
+manetoku_post = Post.find_or_create_by!(title: "革命的", user_id: manetoku.id) do |p|
   p.category = "交際費"
   p.body = "知らないと損！"
   p.post_image.attach(
@@ -73,32 +79,61 @@ post = Post.find_or_create_by!(title: "革命的", user_id: manetoku.id) do |p|
   )
 end
 
-Comment.find_or_create_by!(
+ludo_post = Post.find_or_create_by!(title: "有料級", user_id: ludo.id) do |p|
+  p.category = "食費"
+  p.body = "ぜひ試してほしいです！"
+  p.post_image.attach(
+    io: File.open("#{Rails.root}/db/fixtures/sample-post4.png"),
+    filename: "sample-post4.png"
+  )
+end
+
+# ludoがmanetokuの投稿へコメント
+ludo_comment = Comment.find_or_create_by!(
   body: "非常にためになった",
-  post_id: post.id,
-  user_id: other_user.id
+  post_id: manetoku_post.id,
+  user_id: ludo.id
 )
 
-# 投稿へのいいね
-PostLike.find_or_create_by!(user_id: other_user.id, post_id: post.id)
-
 # コメントへのいいね
-comment = Comment.find_by(post_id: post.id)
-CommentLike.find_or_create_by!(user_id: manetoku.id, comment_id: comment.id)
+comment = Comment.find_by(post_id: manetoku_post.id)
+CommentLike.find_or_create_by!(user_id: manetoku.id, comment_id: ludo_comment.id)
 
-# レビュー（評価）
+# manetokuがludoの投稿へいいね
+PostLike.find_or_create_by!(user_id: manetoku.id, post_id: ludo_post.id)
+
+# ludoがmanetokuの投稿へいいね
+PostLike.find_or_create_by!(user_id: ludo.id, post_id: manetoku_post.id)
+
+# manetokuがludoの投稿へレビュー（評価）
 Review.find_or_create_by!(
-  post_id: post.id,
-  user_id: other_user.id,
+  post_id: ludo_post.id,
+  user_id: manetoku.id,
   star: 4,
   body: "内容がとてもわかりやすかったです！"
 )
 
-# 通知(フォローしているユーザーが投稿)
+# ludoがmanetokuの投稿へレビュー（評価）
+Review.find_or_create_by!(
+  post_id: manetoku_post.id,
+  user_id: ludo.id,
+  star: 5,
+  body: "ほかの人にも共有します！"
+)
+
+# manetokuが投稿したらludoに通知
 Notification.find_or_create_by!(
-  user_id: other_user.id,
+  user_id: ludo.id,
   notifiable_type: "Post",
-  notifiable_id: post.id,
+  notifiable_id: manetoku_post.id,
+  read: true
+)
+
+# ludoが投稿したらmanetokuに通知
+Notification.find_or_create_by!(
+  user_id: manetoku.id,
+  notifiable_type: "Post",
+  notifiable_id: ludo_post.id,
   read: true
 )
 

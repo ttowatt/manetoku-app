@@ -3,12 +3,12 @@ class Public::NotificationsController < ApplicationController
   def update
     notification = current_user.notifications.find(params[:id])
     notification.update(read: true)
-    # 通知の種類によるリダイレクトパスの生成
-    case notification.notifiable_type
-    when "Post"
-      redirect_to post_path(notification.notifiable)
+  
+    # 通知が Post の場合はその投稿の show へ飛ばす
+    if notification.notifiable_type == "Post"
+      redirect_to public_post_path(notification.notifiable_id)
     else
-      redirect_to user_path(notification.notifiable.user)
+      redirect_to public_posts_path, notice: "通知を確認しました"
     end
   end
 end
