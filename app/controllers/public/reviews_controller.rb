@@ -6,7 +6,7 @@ class Public::ReviewsController < ApplicationController
   end
   
   def index
-    @reviews = @post.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @post.reviews.includes(:user).order(created_at: :desc).page(params[:page]).per(15)
   end
   
   def create
