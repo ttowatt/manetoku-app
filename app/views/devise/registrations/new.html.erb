@@ -18,6 +18,15 @@
             <h3 class="card-title"><%= f.label :email %></h3>
             <p class="card-text"><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control w-50 mx-auto" %></p>
             
+            <h3 class="card-title"><%= f.label :password %></h3>
+              <% if @minimum_password_length %>
+              <em>(英数字 <%= @minimum_password_length %> 文字以上)</em>
+              <% end %>
+            <p class="card-text"><%= f.password_field :password, autocomplete: "new-password", class:"form-control w-50 mx-auto" %></p>
+
+            <%= f.label :password_confirmation, "パスワード確認" %>
+            <p class="card-text"><%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control w-50 mx-auto" %></p>
+
             <h3 class="card-title"><%= f.label :phone_number, "電話番号" %></h3>
             <p class="card-text"><%= f.text_field :phone_number, placeholder: "ハイフンなし", class:"form-control w-50 mx-auto" %></p>
             
