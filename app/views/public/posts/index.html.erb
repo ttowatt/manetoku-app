@@ -44,8 +44,8 @@
             </div>
             <% if post.user != current_user %>
               <%= link_to "評価する", new_public_post_review_path(post), class:"btn btn-primary" %>
-              <%= link_to "評価一覧", public_post_reviews_path(post), class:"btn btn-primary" %>
             <% end %>
+            <%= link_to "評価一覧", public_post_reviews_path(post), class:"btn btn-primary" %>
           </div>
         </div>
       </div>

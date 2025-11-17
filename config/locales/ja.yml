@@ -2,6 +2,10 @@
 ja:
   activerecord:
     attributes:
+      #admin
+      admin:
+        email: "メールアドレス"
+        password: "パスワード"
       #カテゴリ
       category:
         category_name: "カテゴリ名"

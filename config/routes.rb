@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :public do
+    get 'contacts/new'
+    get 'contacts/confirm'
+    get 'contacts/done'
+  end
   # config/routes.rb
   devise_for :admins, controllers: {sessions: 'admins/sessions',registrations: 'admins/registrations'}
   devise_for :users, controllers: {sessions: 'users/sessions',registrations: 'users/registrations'}
@@ -27,10 +32,18 @@ Rails.application.routes.draw do
     resources :categories, only: [:new, :edit, :create, :update, :destroy]
     resources :expenses, only: [:edit, :create, :update, :destroy]
     resources :periods, only: [:index, :show, :edit, :create, :update, :destroy]
+
+    resources :contacts, only: [:new, :create] do
+      collection do
+          post 'confirm'
+          post 'back'
+          get 'done'
+      end
+    end
   end
 
   namespace :admins do
-    get 'homes/top' => 'homes#top', as: 'root'
+    root "homes#top"
     resources :users, only: [:index, :show, :destroy]
     resources :posts, only: [:index, :show, :destroy]
     resources :reviews, only: [:index, :show, :destroy]

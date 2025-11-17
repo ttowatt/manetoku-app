@@ -1,4 +1,8 @@
 ja:
+  errors:
+    messages:
+      not_saved: "保存できませんでした。%{count} 件のエラーがあります。"
+
   devise:
     confirmations:
       confirmed: "メールアドレスが確認されました。"
