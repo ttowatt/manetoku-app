@@ -2,7 +2,7 @@ class Admins::CommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @comments = Comment.all
+    @comments = Comment.page(params[:page]).per(100)
   end
 
   def show

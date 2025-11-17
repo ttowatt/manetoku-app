@@ -5,10 +5,11 @@ class Public::SearchesController < ApplicationController
 
     if @model == "user"
       @q = User.ransack(username_cont: @keyword)
-      @results = @q.result(distinct: true)
+      @results = @q.result(distinct: true).page(params[:page]).per(30)
+
     elsif @model == "post"
       @q = Post.ransack(title_or_body_or_category_cont: @keyword)
-      @results = @q.result(distinct: true)
+      @results = @q.result(distinct: true).page(params[:page]).per(15)
     else
       @results = []
     end

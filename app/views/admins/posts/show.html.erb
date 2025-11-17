@@ -1,19 +1,37 @@
 <%= render "admins/header" %>
-  <div class="card w-75">
-    <div class="card-header d-flex">
-      <%= link_to @post.user.username, admins_user_path(@post) %>
-      <%= @post.category %>
-      <%= link_to "削除", admins_post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" } %>
-    </div>
-    <div class="card-img">
-      <% if @post.post_image.attached? %>
-        <%= image_tag @post.post_image, size: "300x300" %>
-      <% else %>
-        <%= image_tag "no_image.jpg", size: "300x300" %>
-      <% end %>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title"><%= @post.title %></h5>
-      <p class="card-text"><%= @post.body %></p>
+<div class="container" style="margin-top:166px;">
+  <h1 class="mb-3 text-center">投稿詳細</h1>
+  <div class="row justify-content-center">
+    <div class="col-8 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-image">
+          <% if @post.post_image.attached? %>
+            <%= image_tag @post.post_image, class: "card-img-size", alt: "投稿画像" %>
+          <% else %>
+            <%= image_tag "no_image.jpg", class: "card-img-size", alt: "画像なし" %>
+          <% end %>
+        </div>
+      
+        <div class="card-body text-left">
+          <p class="mb-1 btn btn-success"><%= @post.category %></p>
+          <% if @post.user.present? %>
+            <%= link_to @post.user.username, admins_user_path(@post.user) %>
+          <% else %>
+            <span class="text-muted">退会したユーザー</span>
+          <% end %>
+          <h5 class="card-title mb-2"><%= @post.title %></h5>
+          <p class="card-text"><%= @post.body %></p>
+          <div class="d-flex align-items-center my-3">
+            <span><i class="fa-regular fa-heart" style="color:red;"></i><%= @post.post_likes.count %></span>
+            <% avg_star = @post.reviews.average(:star) || 0 %>
+            <p class="mb-0 mr-3 d-flex align-items-center">
+              <i class="fa-solid fa-star star-color me-1"></i>
+              <%= avg_star.round(1) %> / 5 (<%= @post.reviews.count %>件)
+            </p>
+          </div>
+          <%= link_to "削除", admins_post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"btn btn-danger" %>
+        </div>
+      </div>
     </div>
   </div>
+</div>

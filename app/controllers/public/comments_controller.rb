@@ -2,7 +2,10 @@ class Public::CommentsController < ApplicationController
 
   def index
     @post = Post.find(params[:post_id])
-    @comments = @post.comments.order(created_at: :desc)
+    @comments = @post.comments
+                 .order(created_at: :desc)
+                 .page(params[:page])
+                 .per(50)
   end
   
   def create

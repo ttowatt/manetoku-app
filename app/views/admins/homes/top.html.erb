@@ -1,7 +1,52 @@
 <%= render "admins/header" %>
-<h1>管理者Topページ</h1>
-<h3>機能</h3>
-<p>会員削除</p>
-<p>投稿削除</p>
-<p>コメント削除</p>
-<p>評価削除</p>
+<div class="container" style="margin-top: 80px;">
+  <h1 class="text-center mb-4">管理者トップページ</h1>
+
+  <p class="text-center mb-5">
+    管理者は以下の機能を利用できます。<br>
+    必要に応じてユーザーや投稿内容の管理を行ってください。
+  </p>
+
+  <div class="row justify-content-center">
+
+    <!-- 会員削除 -->
+    <div class="col-6">
+      <div class="card shadow-sm text-center p-4">
+        <i class="fa-solid fa-user-xmark fa-2x mb-3"></i>
+        <h4>会員管理</h4>
+        <p>ユーザーの情報確認・削除ができます。</p>
+        <%= link_to "会員一覧へ", admins_users_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <!-- 投稿削除 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-center p-4">
+        <i class="fa-solid fa-pen-to-square fa-2x mb-3"></i>
+        <h4>投稿管理</h4>
+        <p>投稿内容を確認し、不適切な投稿を削除できます。</p>
+        <%= link_to "投稿一覧へ", admins_posts_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <!-- コメント削除 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-center p-4">
+        <i class="fa-solid fa-comment-slash fa-2x mb-3"></i>
+        <h4>コメント管理</h4>
+        <p>ユーザーのコメントを確認・削除できます。</p>
+        <%= link_to "コメント一覧へ", admins_comments_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <!-- 評価削除 -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm text-center p-4">
+        <i class="fa-solid fa-star-half-stroke fa-2x mb-3"></i>
+        <h4>レビュー管理</h4>
+        <p>レビュー内容の確認・削除ができます。</p>
+        <%= link_to "レビュー一覧へ", admins_reviews_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

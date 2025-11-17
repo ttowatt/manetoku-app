@@ -1,34 +1,53 @@
 <%= render "admins/header" %>
-<h2>レビュー詳細</h2>
+<div class="container" style="margin-top:166px;">
+  <h2 class="text-center mb-4">レビュー詳細</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-<!-- 投稿情報 -->
-<div class="post-info">
-  <h3>投稿者: <%= @review.post.user.username %></h3>
-  <h3>タイトル: <%= @review.post.title %></h3>
-  <p><%= @review.post.body %></p>
-</div>
+      <!-- 投稿情報カード -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">投稿情報</h4>
+          <p><strong>投稿者:</strong> <%= link_to @review.user.username, admins_user_path(@review.user) %></p>
+          <p><strong>タイトル:</strong> <%= @review.post.title %></p>
+          <p><%= @review.post.body %></p>
+          <div class="text-center">
+            <%= link_to "詳細", admins_post_path(@review.post), class:"btn btn-primary" %>
+          </div>
+        </div>
+      </div>
 
-<!-- レビュー情報 -->
-<div class="review-item">
-  <strong>レビュー投稿者: <%= @review.user.username %></strong>
-  
-  <!-- レビューの星 -->
-  <span class="review-stars">
-    <% 1.upto(5) do |i| %>
-      <% if i <= @review.star.to_i %>
-        <i class="fa-solid fa-star" style="color: gold;"></i>
-      <% else %>
-        <i class="fa-regular fa-star" style="color: #ccc;"></i>
-      <% end %>
-    <% end %>
-  </span>
+      <!-- レビュー情報カード -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">レビュー情報</h4>
+          
+          <p><strong>レビュー投稿者:</strong> <%= link_to @review.user.username, admins_user_path(@review.user) %></p>
+          
+          <!-- レビューの星 -->
+          <p class="mb-2">
+            <% 1.upto(5) do |i| %>
+              <% if i <= @review.star.to_i %>
+                <i class="fa-solid fa-star" style="color: gold;"></i>
+              <% else %>
+                <i class="fa-regular fa-star" style="color: #ccc;"></i>
+              <% end %>
+            <% end %>
+          </p>
+          
+          <!-- レビュー本文 -->
+          <p><%= @review.body %></p>
+          
+          <!-- 管理者用削除ボタン -->
+          <div class="text-center">
+            <%= link_to "削除", admins_review_path(@review),
+                        method: :delete,
+                        data: { confirm: "本当に削除しますか？" },
+                        class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
 
-  <!-- レビュー本文 -->
-  <p><%= @review.body %></p>
-
-  <!-- 管理者用の削除ボタン -->
-  <%= link_to "削除", admins_review_path(@review),
-              method: :delete,
-              data: { confirm: "本当に削除しますか？" },
-              class: "btn btn-danger" %>
+    </div>
+  </div>
 </div>
