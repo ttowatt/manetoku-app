@@ -15,7 +15,7 @@ class Public::UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      redirect_to public_user_path(@user), notice: "プロフィールの更新に成功しました"
+      redirect_to user_path(@user), notice: "プロフィールの更新に成功しました"
     else
       render "edit"
     end
@@ -39,7 +39,7 @@ class Public::UsersController < ApplicationController
   end
 
   def ensure_correct_user
-    redirect_to public_user_path(current_user) unless @user == current_user
+    redirect_to user_path(current_user) unless @user == current_user
   end
 
   def user_params

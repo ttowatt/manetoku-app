@@ -33,8 +33,8 @@ class Public::CategoriesController < ApplicationController
   end
   
   def destroy
-    @category = current_user.categories.find(params[:id])
-    @category.destroy
+    category = current_user.categories.find(params[:id])
+    category.destroy
     flash[:notice] = "カテゴリの削除が成功しました"
     redirect_to top_path
   end

@@ -1,6 +1,6 @@
 <%= render "public/header2" %>
 <div class="container d-flex justify-content-center" style="margin-top:166px;">
-  <%= form_with model: @review, url: public_post_reviews_path(@post), local: true do |f| %>
+  <%= form_with model: @review, url: post_reviews_path(@post), local: true do |f| %>
     
 
     <div class="card border-dark", style="width: 400px;">

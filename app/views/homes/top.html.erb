@@ -2,7 +2,7 @@
 <div class="container" style="margin-top:166px;">
 <!--カテゴリ登録-->
   <% if @latest_period.present? %>
-    <%= link_to new_public_category_path, class: "btn btn-success fixed-top-right" do %>
+    <%= link_to new_category_path, class: "btn btn-success fixed-top-right" do %>
       <i class="fa-solid fa-plus fa-2x"></i>
     <% end %>
   <% end %>
@@ -15,7 +15,7 @@
         </div>
       <% end %>
 
-      <%= form_with model: @period, url: public_periods_path, local: true do |f| %>
+      <%= form_with model: @period, url: periods_path, local: true do |f| %>
         <% if @period.errors.any? %>
           <div class="alert alert-danger">
             <h4><%= pluralize(@period.errors.count, "件のエラー") %>があります：</h4>
@@ -70,10 +70,10 @@
         <div class="card-header text-center card-header-color">
           <h3>
             <%= @latest_period.start_date %> ~ <%= @latest_period.end_date %>
-            <%= link_to edit_public_period_path(@latest_period), class:"btn btn-warning" do %>
+            <%= link_to edit_period_path(@latest_period), class:"btn btn-warning" do %>
               <i class="fa-solid fa-pen"></i>
             <% end %>
-            <%= link_to public_period_path(@latest_period), method: :delete,
+            <%= link_to period_path(@latest_period), method: :delete,
                         data: {confirm: "本当に削除しますか？"},
                         class:"btn btn-danger" do %>
               <i class="fa-solid fa-trash"></i>
@@ -86,12 +86,12 @@
         <div class="col-4 card-body">
           <div class="card border-secondary">
             <div class="card-header card-header-color">
-              <p><%= link_to category.category_name, public_period_path(@latest_period), class:"m-0 btn btn-success" %></p>
+              <p><%= link_to category.category_name, period_path(@latest_period), class:"m-0 btn btn-success" %></p>
               残高<%= category.budget - category.expenses.where(period_id: @latest_period.id).sum(:amount) %> 円 <br>
-              <%= link_to edit_public_category_path(category), class:"mt-2 btn btn-warning btn-sm" do %>
+              <%= link_to edit_category_path(category), class:"mt-2 btn btn-warning btn-sm" do %>
                 <i class="fa-solid fa-pen"></i>
               <% end %>
-              <%= link_to public_category_path(category), method: :delete,
+              <%= link_to category_path(category), method: :delete,
                           data: {confirm: "本当に削除しますか？"},
                           class:"mt-2 btn btn-danger btn-sm" do %>
                 <i class="fa-solid fa-trash"></i>
@@ -99,7 +99,7 @@
             </div>
 
             
-            <%= form_with model: @expense, url: public_expenses_path, local: true do |f| %>
+            <%= form_with model: @expense, url: expenses_path, local: true do |f| %>
               
 
             <div class="card-body">

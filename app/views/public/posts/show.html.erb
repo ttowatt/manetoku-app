@@ -12,14 +12,14 @@
         <div class="card-body text-left">
           <p class="mb-1 btn btn-success"><%= @post.category %></p>
           <% if @post.user.present? %>
-            <%= link_to @post.user.username, public_user_path(@post.user) %>
+            <%= link_to @post.user.username, user_path(@post.user) %>
           <% else %>
             <span class="text-muted">退会したユーザー</span>
           <% end %>
           <h5 class="card-title mb-2"><%= @post.title %></h5>
           <p class="card-text">
             <%= truncate(@post.body, length: 11) %>
-            <%= link_to "詳細を見る", public_post_path(@post), class:"btn btn-link" %>
+            <%= link_to "詳細を見る", post_path(@post), class:"btn btn-link" %>
           </p>
           <div class="d-flex align-items-center my-3">
           
@@ -31,14 +31,26 @@
               <%= avg_star.round(1) %> / 5 (<%= @post.reviews.count %>件)
             </p>
 
-            <%= link_to public_post_comments_path(@post), class: "ml-3 text-secondary d-flex align-items-center" do %>
+            <%= link_to post_comments_path(@post), class: "ml-3 text-secondary d-flex align-items-center" do %>
               <i class="fa-regular fa-comment fa-2x"></i>
             <% end %>
           </div>
-          <% if @post.user != current_user %>
-            <%= link_to "評価する", new_public_post_review_path(@post), class:"btn btn-primary" %>
-            <%= link_to "評価一覧", public_post_reviews_path(@post), class:"btn btn-primary" %>
-          <% end %>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <% if @post.user != current_user %>
+                <%= link_to "評価する", new_post_review_path(@post), class:"btn btn-primary me-2" %>
+              <% end %>
+              <%= link_to "評価一覧", post_reviews_path(@post), class:"btn btn-primary" %>
+            </div>
+            <div>
+              <% if @post.user == current_user %>
+                <%= link_to "削除", post_path(@post),
+                            method: :delete,
+                            data: { confirm: "このレビューを削除しますか？" },
+                            class: "btn btn-sm btn-danger" %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
