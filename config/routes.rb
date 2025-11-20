@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :public do
+  scope module: :public do
     get 'contacts/new'
     get 'contacts/confirm'
     get 'contacts/done'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   root "homes#about"
   get "top", to: "homes#top", as: "top"
 
-  namespace :public do
+  scope module: :public do
     get 'search', to: 'searches#search', as: 'search'
     get 'users/withdraw', to: 'users#withdraw_confirm', as: 'withdraw_confirm'
     delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'

@@ -15,15 +15,15 @@
       <!-- フォローボタン or 編集ボタン -->
       <div class="d-flex justify-content-center align-items-center mb-4">
         <% if current_user == @user %>
-          <%= link_to "プロフィールを編集(退会)", edit_public_user_path(current_user), class: "btn btn-outline-primary mx-2" %>
-          <%= link_to "投稿する", new_public_post_path, class: "btn btn-primary mx-2" %>
+          <%= link_to "プロフィールを編集(退会)", edit_user_path(current_user), class: "btn btn-outline-primary mx-2" %>
+          <%= link_to "投稿する", new_post_path, class: "btn btn-primary mx-2" %>
         <% else %>
           <div id="follow_button">
             <% if current_user.following.include?(@user) %>
-              <%= button_to "フォロー解除", public_user_follow_path(@user),
+              <%= button_to "フォロー解除", user_follow_path(@user),
                     method: :delete, remote: true, class: "btn btn-outline-danger mx-2" %>
             <% else %>
-              <%= button_to "フォロー", public_user_follow_path(@user),
+              <%= button_to "フォロー", user_follow_path(@user),
                     method: :post, remote: true, class: "btn btn-primary mx-2" %>
             <% end %>
           </div>
@@ -89,7 +89,7 @@
                   <div class="align-items-center mb-2">
                     <% if review.post.present? %>
                       <h5 class="mb-0 mr-2">
-                        <%= link_to review.post.title, public_post_path(review.post), class: "font-weight-bold" %>
+                        <%= link_to review.post.title, post_path(review.post), class: "font-weight-bold" %>
                       </h5>
                     <% else %>
                       <span class="text-muted mr-2">削除された投稿</span>
@@ -98,7 +98,7 @@
                     <small class="text-muted">
                       投稿者：
                       <% if review.post&.user.present? %>
-                        <%= link_to review.post.user.username, public_user_path(review.post.user) %>
+                        <%= link_to review.post.user.username, user_path(review.post.user) %>
                       <% else %>
                         <span class="text-muted">退会済みユーザー</span>
                       <% end %>
@@ -126,7 +126,7 @@
                   <% if review.user == current_user %>
                     <div class="text-right mt-2">
                       <%= link_to "削除",
-                                  public_post_review_path(review.post, review),
+                                  post_review_path(review.post, review),
                                   method: :delete,
                                   data: { confirm: "このレビューを削除しますか？" },
                                   class: "btn btn-sm btn-outline-danger" %>

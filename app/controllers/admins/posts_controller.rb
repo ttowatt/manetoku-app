@@ -12,7 +12,7 @@ class Admins::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    flash[:notice]= "会員の削除が成功しました"
+    flash[:notice]= "投稿の削除が成功しました"
     redirect_to admins_posts_path
   end
 end

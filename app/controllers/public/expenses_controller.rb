@@ -24,17 +24,17 @@ class Public::ExpensesController < ApplicationController
   def update
     @expense = current_user.expenses.find(params[:id])
     if @expense.update(expense_params)
-      redirect_to public_period_path(@expense.period_id), notice: "支出を更新しました"
+      redirect_to period_path(@expense.period_id), notice: "支出を更新しました"
     else
       render "edit"
     end
   end
   
   def destroy
-    @expense = current_user.expenses.find(params[:id])
-    @expense.destroy
+    expense = current_user.expenses.find(params[:id])
+    expense.destroy
     flash[:notice] = "支出の削除が成功しました"
-    redirect_to public_period_path(@expense.period_id)
+    redirect_to period_path(@expense.period_id)
   end
   
   def expense_params

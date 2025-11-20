@@ -5,7 +5,7 @@ class Public::FollowsController < ApplicationController
       current_user.following << @user
 
       respond_to do |format|
-        format.html { redirect_to public_user_path(@user) }
+        format.html { redirect_to user_path(@user) }
         format.js   # create.js.erb を呼ぶ
       end
     end
@@ -14,7 +14,7 @@ class Public::FollowsController < ApplicationController
       current_user.following.delete(@user)
 
       respond_to do |format|
-        format.html { redirect_to public_user_path(@user) }
+        format.html { redirect_to user_path(@user) }
         format.js   # destroy.js.erb を呼ぶ
       end
     end

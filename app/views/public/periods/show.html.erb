@@ -13,11 +13,11 @@
             </h4>
             <p>残高<%= category.budget - category.expenses.sum(:amount) %>円</p>
 
-            <%= link_to edit_public_category_path(category), class:"mt-1 btn btn-warning btn-sm" do %>
+            <%= link_to edit_category_path(category), class:"mt-1 btn btn-warning btn-sm" do %>
               <i class="fa-solid fa-pen"></i>
             <% end %>
 
-            <%= link_to public_category_path(category), method: :delete,
+            <%= link_to category_path(category), method: :delete,
                         data: {confirm: "本当に削除しますか？"},
                         class:"mt-1 btn btn-danger btn-sm" do %>
               <i class="fa-solid fa-trash"></i>
@@ -51,10 +51,10 @@
                         <td><%= expense.expense_date.strftime("%Y-%m-%d") %></td>
                         <td><%= expense.amount %></td>
                         <td>
-                          <%= link_to edit_public_expense_path(expense), class:"btn btn-warning btn-sm" do %>
+                          <%= link_to edit_expense_path(expense), class:"btn btn-warning btn-sm" do %>
                             <i class="fa-solid fa-pen"></i>
                           <% end %>
-                          <%= link_to public_expense_path(expense), method: :delete,
+                          <%= link_to expense_path(expense), method: :delete,
                                       data: {confirm: "本当に削除しますか？"},
                                       class:"btn btn-danger btn-sm" do %>
                             <i class="fa-solid fa-trash"></i>

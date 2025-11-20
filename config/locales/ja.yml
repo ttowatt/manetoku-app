@@ -1,5 +1,8 @@
 #カテゴリの予算登録フォームのエラーメッセージ
 ja:
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
   activerecord:
     attributes:
       #admin
