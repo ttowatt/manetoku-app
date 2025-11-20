@@ -12,17 +12,17 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-  if @comment.save
-    redirect_to public_post_comments_path(@post), notice: "コメントを投稿しました。"
-  else
-    redirect_to public_post_comments_path(@post), alert: "コメントの投稿に失敗しました。"
-  end
+    if @comment.save
+      redirect_to post_comments_path(@post), notice: "コメントを投稿しました。"
+    else
+      render 'index'
+    end
   end
   
   def destroy
-    comment = Comment.find(params[:id])
+    comment = current_user.comment.find(params[:id])
     comment.destroy
-    redirect_to public_post_comments_path(comment.post), notice: "コメントを削除しました。"
+    redirect_to post_comments_path(comment.post), notice: "コメントを削除しました。"
   end
 
   private

@@ -51,8 +51,8 @@ class Public::PeriodsController < ApplicationController
   end
 
   def destroy
-    @period = current_user.periods.find(params[:id])
-    @period.destroy
+    period = current_user.periods.find(params[:id])
+    period.destroy
     flash[:notice] = "期間を削除しました"
     redirect_to top_path
   end

@@ -1,6 +1,6 @@
 <%= render "public/header1" %>
 <div class="container d-flex justify-content-center" style="margin-top:166px;">
-  <%= form_with model: @period, url: public_period_path(@period), local: true do |f| %>
+  <%= form_with model: @period, url: period_path(@period), local: true do |f| %>
     <% if @period.errors.any? %>
       <div class="alert alert-danger">
         <h4><%= pluralize(@period.errors.count, "件のエラー") %>があります：</h4>

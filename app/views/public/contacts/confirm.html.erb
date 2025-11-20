@@ -26,7 +26,7 @@
 
       <div class="d-flex">
         <div class="mr-3">
-        <%= form_with model: @contact, url: public_contacts_path do |f| %>
+        <%= form_with model: @contact, url: contacts_path do |f| %>
           <%= f.hidden_field :name %>
           <%= f.hidden_field :email %>
           <%= f.hidden_field :subject %>
@@ -36,7 +36,7 @@
         </div>
 
         <div>
-        <%= form_with model: @contact, url: back_public_contacts_path do |f| %>
+        <%= form_with model: @contact, url: back_contacts_path do |f| %>
           <%= f.hidden_field :name %>
           <%= f.hidden_field :email %>
           <%= f.hidden_field :subject %>

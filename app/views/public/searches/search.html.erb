@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
               <%= image_tag user.get_profile_image, size: "60x60", class: "rounded-circle me-3" %>
               <div>
-                <h5><%= link_to user.username, public_user_path(user), class: "text-primary fw-bold" %></h5>
+                <h5><%= link_to user.username, user_path(user), class: "text-primary fw-bold" %></h5>
                 <p class="mb-0 text-muted"><%= truncate(user.introduction, length: 30) %></p>
               </div>
             </div>
@@ -30,14 +30,14 @@
               <div class="card-body text-left">
                 <p class="mb-1 btn btn-success"><%= post.category %></p>
                 <% if post.user.present? %>
-                  <%= link_to post.user.username, public_user_path(post.user) %>
+                  <%= link_to post.user.username, user_path(post.user) %>
                 <% else %>
                   <span class="text-muted">退会したユーザー</span>
                 <% end %>
                 <h5 class="card-title mb-2"><%= post.title %></h5>
                 <p class="card-text">
                   <%= truncate(post.body, length: 11) %>
-                  <%= link_to "詳細を見る", public_post_path(post), class:"btn btn-link" %>
+                  <%= link_to "詳細を見る", post_path(post), class:"btn btn-link" %>
                 </p>
                 <div class="d-flex align-items-center my-3">
             
@@ -49,13 +49,13 @@
                     <%= avg_star.round(1) %> / 5 (<%= post.reviews.count %>件)
                   </p>
 
-                  <%= link_to public_post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
+                  <%= link_to post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
                     <i class="fa-regular fa-comment fa-2x"></i>
                   <% end %>
                 </div>
                 <% if post.user != current_user %>
-                  <%= link_to "評価する", new_public_post_review_path(post), class:"btn btn-primary" %>
-                  <%= link_to "評価一覧", public_post_reviews_path(post), class:"btn btn-primary" %>
+                  <%= link_to "評価する", new_post_review_path(post), class:"btn btn-primary" %>
+                  <%= link_to "評価一覧", post_reviews_path(post), class:"btn btn-primary" %>
                 <% end %>
               </div>
             </div>
