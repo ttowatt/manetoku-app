@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     delete 'users/withdraw', to: 'users#destroy', as: 'withdraw'
     resources :users, only: [:edit, :show, :update]do
       resource :follow, only: [:create, :destroy]
+      member do
+        get :followings   # 自分がフォローしている人一覧
+        get :followers    # 自分をフォローしている人一覧
+      end
     end
 
     resources :posts, only: [:new, :index, :show, :create, :destroy] do

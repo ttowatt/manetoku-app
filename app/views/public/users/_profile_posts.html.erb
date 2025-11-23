@@ -1,18 +1,40 @@
 <div class="col-md-6 mb-4">
-  <div class="card shadow-sm">
-    <% if post.post_image.attached? %>
-      <%= image_tag post.post_image, class: "card-img-size", alt: "投稿画像" %>
-    <% else %>
-      <%= image_tag "no_image.jpg", class: "card-img-size" %>
-    <% end %>
-    <div class="card-body text-left">
-      <p class="mb-1 btn btn-success"><%= post.category %></p>
-      <% if post.user.present? %>
-        <%= link_to post.user.username, user_path(post.user) %>
+  <div class="card h-100 shadow-sm">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="mb-1 btn btn-success"><%= post.category %></p>
+          <% if post.user.present? %>
+            <%= link_to post.user.username, user_path(post.user) %>
+          <% else %>
+            <span class="text-muted">退会したユーザー</span>
+          <% end %>
+        </div>
+        <div>
+          <% if post.user == current_user %>
+            <%= link_to "削除", post_path(post),
+                        method: :delete,
+                        data: { confirm: "このレビューを削除しますか？" },
+                        class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+      <div class="text-left">
+        <%= l post.created_at %>
+      </div>
+    </div>
+    <div class="card-image">
+      <% if post.post_image.attached? %>
+        <%= image_tag post.post_image, class: "card-img-size", alt: "投稿画像" %>
       <% else %>
-        <span class="text-muted">退会したユーザー</span>
+        <%= image_tag "no_image.jpg", class: "card-img-size", alt: "画像なし" %>
       <% end %>
-      <h5 class="card-title mb-2"><%= post.title %></h5>
+    </div>
+
+    <div class="card-body text-left">
+      <h5 class="card-title">
+        <span class="p-2 title-border-color"><%= post.title %></span>
+      </h5>
       <p class="card-text">
         <%= truncate(post.body, length: 11) %>
         <%= link_to "詳細を見る", post_path(post), class:"btn btn-link" %>
@@ -29,24 +51,13 @@
 
         <%= link_to post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
           <i class="fa-regular fa-comment fa-2x"></i>
+          <span class="ml-1">(<%= post.comments.count %>件)</span>
         <% end %>
       </div>
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-          <% if post.user != current_user %>
-            <%= link_to "評価する", new_post_review_path(post), class:"btn btn-primary me-2" %>
-          <% end %>
-          <%= link_to "評価一覧", post_reviews_path(post), class:"btn btn-primary" %>
-        </div>
-        <div>
-          <% if post.user == current_user %>
-            <%= link_to "削除", post_path(post),
-                        method: :delete,
-                        data: { confirm: "このレビューを削除しますか？" },
-                        class: "btn btn-sm btn-danger" %>
-          <% end %>
-        </div>
-      </div>    
+      <% if post.user != current_user %>
+        <%= link_to "評価する", new_post_review_path(post), class:"btn btn-primary me-2" %>
+      <% end %>
+      <%= link_to "評価一覧", post_reviews_path(post), class:"btn btn-primary" %>
     </div>
   </div>
 </div>
