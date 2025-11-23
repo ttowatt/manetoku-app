@@ -34,7 +34,7 @@ class Public::ExpensesController < ApplicationController
     expense = current_user.expenses.find(params[:id])
     expense.destroy
     flash[:notice] = "支出の削除が成功しました"
-    redirect_to period_path(@expense.period_id)
+    redirect_to period_path(expense.period)
   end
   
   def expense_params

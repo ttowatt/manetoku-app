@@ -70,7 +70,9 @@
         <div class="tab-pane fade show active" id="posts" role="tabpanel">
           <div class="row">
             <% @posts.each do |post| %>
-              <%= render "public/users/profile_posts", post: post %>
+              <div class="col-md-6 mb-4">
+                <%= render "public/posts/post_layout", post: post %>
+              </div>
             <% end %>
           </div>
         </div>
@@ -79,64 +81,19 @@
         <div class="tab-pane fade" id="likes" role="tabpanel">
           <div class="row">
             <% @user.liked_posts.each do |post| %>
-             <%= render "public/users/profile_posts", post: post %>
+              <div class="col-md-6 mb-4">
+                <%= render "public/posts/post_layout", post: post %>
+              </div>
             <% end %>
           </div>
         </div>
 
         <!-- 評価タブ -->
         <div class="tab-pane fade" id="reviews" role="tabpanel">
-          <div class="list-group mb-5">
+          <div class="list-group mb-5 mx-auto">
             <% if @user.reviews.any? %>
               <% @user.reviews.each do |review| %>
-                <div class="list-group-item mb-3 border rounded shadow-sm p-3">
-                  <div class="align-items-center mb-2">
-                    <% if review.post.present? %>
-                      <h5 class="mb-0 mr-2">
-                        <%= link_to review.post.title, post_path(review.post), class: "font-weight-bold" %>
-                      </h5>
-                    <% else %>
-                      <span class="text-muted mr-2">削除された投稿</span>
-                    <% end %>
-
-                    <small class="text-muted">
-                      投稿者：
-                      <% if review.post&.user.present? %>
-                        <%= link_to review.post.user.username, user_path(review.post.user) %>
-                      <% else %>
-                        <span class="text-muted">退会済みユーザー</span>
-                      <% end %>
-                    </small>
-
-                    <!-- 星評価表示 -->
-                    <div class="review-stars ml-2">
-                      <% 1.upto(5) do |i| %>
-                        <% if i <= review.star.to_i %>
-                          <i class="fa-solid fa-star" style="color: gold;"></i>
-                        <% else %>
-                          <i class="fa-regular fa-star" style="color: #ccc;"></i>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  </div>
-
-                  <!-- レビュー本文 -->
-                  <p class="mb-1"><%= review.body %></p>
-
-                  <!-- 投稿者情報 -->
-                  
-
-                  <!-- 削除ボタン（自分のレビューのみ） -->
-                  <% if review.user == current_user %>
-                    <div class="text-right mt-2">
-                      <%= link_to "削除",
-                                  post_review_path(review.post, review),
-                                  method: :delete,
-                                  data: { confirm: "このレビューを削除しますか？" },
-                                  class: "btn btn-sm btn-outline-danger" %>
-                    </div>
-                  <% end %>
-                </div>
+                <%= render "public/reviews/review_layout", review: review %>
               <% end %>
             <% else %>
               <p class="text-muted">まだレビューはありません。</p>

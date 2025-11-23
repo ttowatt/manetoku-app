@@ -23,7 +23,7 @@ class Public::PostsController < ApplicationController
   end
   
   def destroy
-    post = current_user.post.find(params[:id])
+    post = current_user.posts.find(params[:id])
     post.destroy
     flash[:notice]= "投稿の削除が成功しました"
     redirect_to posts_path
