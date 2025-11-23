@@ -1,56 +1,57 @@
 <%= render "public/header2" %>
 <div class="container" style="margin-top:166px;">
-<%= form_with model: @user, url: user_path(@user), method: :patch, local: true, html: { multipart: true } do |f| %>
-  <% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h4><%= pluralize(@user.errors.count, "件のエラー") %>があります：</h4>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, html: { multipart: true } do |f| %>
+    <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(@user.errors.count, "件のエラー") %>があります：</h4>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      <div class="card  shadow-sm">
-        <div class="card-header card-header-color mb-5">
-          <%= f.label :profile_image, "プロフィール画像を変更" %><br>
-          <%= f.file_field :profile_image, accept: "image/*" %>
-        </div>
-        <div class="card-image text-center">
-          <%= image_tag @user.get_profile_image, size: '200x200', class: "rounded-circle border" %>
-        </div>
-        <div class="card-body text-center">
-          <h3 class="card-title"><%= f.label :username, "ユーザー名(表示名)" %></h3>
-          <p class="card-text"><%= f.text_field :username, class:"form-control w-50 mx-auto" %></p>
-          
-          <h3 class="card-title"><%= f.label :introduction, "自己紹介文" %></h3>
-          <p class="card-text"><%= f.text_area :introduction, class:"form-control w-50 mx-auto", rows: 6 %></p>
-          
-          <h3 class="card-title"><%= f.label :email %></h3>
-          <p class="card-text"><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control w-50 mx-auto" %></p>
-          
-          <h3 class="card-title"><%= f.label :phone_number, "電話番号" %></h3>
-          <p class="card-text"><%= f.text_field :phone_number, placeholder: "ハイフンなし", class:"form-control w-50 mx-auto" %></p>
-          
-          <h3 class="card-title"><%= f.label :last_name, "姓"%></h3>
-          <p class="card-text"><%= f.text_field :last_name, placeholder: "田中", class:"form-control w-50 mx-auto" %></p>
-          
-          <h3 class="card-title"><%= f.label :first_name, "名"%></h3>
-          <p class="card-text"><%= f.text_field :first_name, placeholder: "花子", class:"form-control w-50 mx-auto" %></p>
+    <div class="row justify-content-center">
+      <div class="col-12 mb-4">
+        <div class="card  shadow-sm">
+          <div class="card-header card-header-color mb-5">
+            <%= f.label :profile_image, "プロフィール画像を変更" %><br>
+            <%= f.file_field :profile_image, accept: "image/*" %>
+          </div>
+          <div class="card-image text-center">
+            <%= image_tag @user.get_profile_image, size: '200x200', class: "rounded-circle border" %>
+          </div>
+          <div class="card-body text-center">
+            <h3 class="card-title"><%= f.label :username, "ユーザー名(表示名)" %></h3>
+            <p class="card-text"><%= f.text_field :username, class:"form-control w-50 mx-auto" %></p>
+            
+            <h3 class="card-title"><%= f.label :introduction, "自己紹介文" %></h3>
+            <p class="card-text"><%= f.text_area :introduction, class:"form-control w-50 mx-auto", rows: 6 %></p>
+            
+            <h3 class="card-title"><%= f.label :email %></h3>
+            <p class="card-text"><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control w-50 mx-auto" %></p>
+            
+            <h3 class="card-title"><%= f.label :phone_number, "電話番号" %></h3>
+            <p class="card-text"><%= f.text_field :phone_number, placeholder: "ハイフンなし", class:"form-control w-50 mx-auto" %></p>
+            
+            <h3 class="card-title"><%= f.label :last_name, "姓"%></h3>
+            <p class="card-text"><%= f.text_field :last_name, placeholder: "田中", class:"form-control w-50 mx-auto" %></p>
+            
+            <h3 class="card-title"><%= f.label :first_name, "名"%></h3>
+            <p class="card-text"><%= f.text_field :first_name, placeholder: "花子", class:"form-control w-50 mx-auto" %></p>
 
-          <h3 class="card-title"><%= f.label :last_name_kana, "姓(カナ)" %></h3>
-          <p class="card-text"><%= f.text_field :last_name_kana, placeholder: "タナカ", class:"form-control w-50 mx-auto" %></p>
+            <h3 class="card-title"><%= f.label :last_name_kana, "姓(カナ)" %></h3>
+            <p class="card-text"><%= f.text_field :last_name_kana, placeholder: "タナカ", class:"form-control w-50 mx-auto" %></p>
 
-          <h3 class="card-title"><%= f.label :first_name_kana, "名(カナ)" %></h3>
-          <p class="card-text"><%= f.text_field :first_name_kana, placeholder: "ハナコ", class:"form-control w-50 mx-auto" %></p>
+            <h3 class="card-title"><%= f.label :first_name_kana, "名(カナ)" %></h3>
+            <p class="card-text"><%= f.text_field :first_name_kana, placeholder: "ハナコ", class:"form-control w-50 mx-auto" %></p>
 
-          <%= f.submit "更新", class: "btn btn-primary" %>
-          <%= link_to "退会する", withdraw_confirm_path, class: "btn btn-danger" %>
+            <%= f.submit "更新", class: "btn btn-primary" %>
+            <%= link_to "退会する", withdraw_confirm_path, class: "btn btn-danger" %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

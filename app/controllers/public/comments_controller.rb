@@ -20,7 +20,7 @@ class Public::CommentsController < ApplicationController
   end
   
   def destroy
-    comment = current_user.comment.find(params[:id])
+    comment = current_user.comments.find(params[:id])
     comment.destroy
     redirect_to post_comments_path(comment.post), notice: "コメントを削除しました。"
   end

@@ -25,7 +25,7 @@ class Public::ReviewsController < ApplicationController
   end
   
   def destroy
-    review = current_user.review.find(params[:id])
+    review = current_user.reviews.find(params[:id])
     review.destroy
     flash[:notice]= "評価の削除が成功しました"
     redirect_to post_reviews_path(@post)

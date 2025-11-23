@@ -1,26 +1,5 @@
+<%= render "public/header2" %>
 <div class="container" style="margin-top:166px;">
   <h2 class="text-center mb-5">フォロー</h2>
-  <div class="row d-flex align-content-center flex-wrap rounded">
-    <% @users.each do |user| %>
-      <div class="col-2 card card-header-color">
-        <div class="card-body d-flex flex-column align-items-center justify-content-center">
-          <div>
-            <%= image_tag user.get_profile_image, size: '100x100', class: "rounded-circle border", alt: "プロフィール画像" %>
-          </div>
-          <h3 class="font-weight-bold mb-3">
-            <%= link_to user.username, user_path(user) %>
-          </h3>
-          <div id="follow_button">
-            <% if current_user.following.include?(@user) %>
-              <%= button_to "フォロー解除", user_follow_path(@user),
-                    method: :delete, remote: true, class: "btn btn-outline-danger mx-2" %>
-            <% else %>
-              <%= button_to "フォロー", user_follow_path(@user),
-                    method: :post, remote: true, class: "btn btn-primary mx-2" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render "follow_index", users: @users %>
 </div>
