@@ -4,47 +4,10 @@
     「<%= link_to @post.title, post_path(@post) %>」の評価一覧
   </h2>
 
-  <div class="list-group mb-5 w-50 mx-auto">
+  <div class="list-group mb-5 w-75 mx-auto">
     <% if @reviews.any? %>
       <% @reviews.each do |review| %>
-        <div class="list-group-item mb-3 border rounded shadow-sm p-3">
-          <div class="text-right">
-            <%= l review.created_at %>
-        </div>
-          <div class="d-flex align-items-center mb-2">
-            <!-- ユーザー画像（あれば） -->
-            <% if review.user.profile_image.attached? %>
-              <%= image_tag review.user.get_profile_image, size: "50x50", class: "mr-3 rounded-circle border" %>
-            <% else %>
-              <%= image_tag "no_image.jpg", size: "50x50", class: "mr-3 rounded-circle border" %>
-            <% end %>
-            <strong>
-              <%= link_to review.user.username, user_path(review.user) %>
-            </strong>
-
-            <!-- 星評価表示 -->
-            <div class="review-stars ml-2">
-              <% 1.upto(5) do |i| %>
-                <% if i <= review.star.to_i %>
-                  <i class="fa-solid fa-star" style="color: gold;"></i>
-                <% else %>
-                  <i class="fa-regular fa-star" style="color: #ccc;"></i>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
-          <p class="mb-1"><%= review.body %></p>
-
-          <% if review.user == current_user %>
-            <div class="text-right mt-2">
-              <%= link_to "削除", post_review_path(@post, review),
-                          method: :delete,
-                          data: { confirm: "このレビューを削除しますか？" },
-                          class: "btn btn-sm btn-outline-danger" %>
-            </div>
-          <% end %>
-        </div>
+        <%= render "review_layout", review: review %>
       <% end %>
     <% else %>
       <p class="text-center text-muted">まだレビューはありません。</p>
