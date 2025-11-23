@@ -1,5 +1,5 @@
 class Public::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
   before_action :ensure_correct_user, only: [:edit, :update]
   
   def index
@@ -30,6 +30,15 @@ class Public::UsersController < ApplicationController
 
   def withdraw_confirm
     @user = current_user
+  end
+
+
+  def followings
+    @users = @user.following
+  end
+
+  def followers
+    @users = @user.followers
   end
 
   private

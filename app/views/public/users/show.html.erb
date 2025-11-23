@@ -38,11 +38,15 @@
         </div>
         <div class="col">
           <p class="mb-1 text-muted">フォロー</p>
-          <h5><%= @user.following.count %></h5>
+          <h5>
+            <%= link_to @user.following.count, followings_user_path(@user), class:"text-dark" %>
+          </h5>
         </div>
         <div class="col">
           <p class="mb-1 text-muted">フォロワー</p>
-          <h5><%= @user.followers.count %></h5>
+          <h5>
+            <%= link_to @user.followers.count, followers_user_path(@user), class:"text-dark" %>
+          </h5>
         </div>
       </div>
 

@@ -27,7 +27,7 @@
                 <% end %>
               </div>
             </div>
-            <div>
+            <div class="text-left">
               <%= l post.created_at %>
             </div>
           </div>
@@ -40,8 +40,9 @@
           </div>
       
           <div class="card-body text-left">
-            
-            <h5 class="card-title mb-2"><%= post.title %></h5>
+            <h5 class="card-title">
+              <span class="p-2 title-border-color"><%= post.title %></span>
+            </h5>
             <p class="card-text">
               <%= truncate(post.body, length: 11) %>
               <%= link_to "詳細を見る", post_path(post), class:"btn btn-link" %>
@@ -58,6 +59,7 @@
 
               <%= link_to post_comments_path(post), class: "ml-3 text-secondary d-flex align-items-center" do %>
                 <i class="fa-regular fa-comment fa-2x"></i>
+                <span class="ml-1">(<%= post.comments.count %>件)</span>
               <% end %>
             </div>
             <% if post.user != current_user %>
