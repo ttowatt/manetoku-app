@@ -1,7 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
-.view-full {
-  width: 100vw;
-  height: 100vh;
+.about-row {
+  display: flex;
 }
 
 .pagination {
