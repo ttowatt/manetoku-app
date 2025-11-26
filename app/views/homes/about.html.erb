@@ -1,24 +1,49 @@
-<div class="card header-footer-color view-full d-flex flex-column justify-content-center align-items-center text-center">
-  <%= image_tag "まねトク-logo.png", size:'500x500', alt: "ロゴ画像", style: "opacity: 0.3;" %>
+<div class="py-5 header-footer-color">
+  <div class="container position-relative">
+    <div class="text-center mt-5">
+      <h1 class="display-4" style="color:#e44e2d; font-weight:700;">About</h1>
+      <p style="color:#e44e2d; margin-top:-10px;">まねトクについて</p>
+    </div>
+  </div>
+</div>
 
-  <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center text-center">
-    <h1 class="card-title mb-5 text-primary font-weight-bold">まねトクへようこそ！！</h1>
-    <p class="card-text mb-4 lead font-weight-bold text-secondary">家計管理 × 節約術 × SNS</p>
-    <p class="mb-3 font-weight-bold text-primary">「節約術を共有しながら家計管理を楽しく続ける」</p>
-    <p class="card-text mb-5 text-dark">
-      新しい形の家計簿SNSアプリです。<br>
-      シンプルな家計簿と節約術コミュニティを通して、<br>
-      無理なく支出を見える化し、<br>
-      お金の管理を改善しながら楽しく続けることができます。
-    </p>
-    
-    <% if user_signed_in? %>
-      <%= link_to "はじめよう！", top_path, class: "btn btn-primary btn-lg mx-2" %>
-    <% else %>
-      <div class="d-flex">
-        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary btn-lg mx-2" %>
-        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary btn-lg mx-2" %>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <%= image_tag "about-logo.png", class: "img-fluid mb-4", alt: "イメージ画像" %>
+    </div>
+  </div>
+  <div class="row align-items-stretch about-row">
+    <div class="col-md-6 p-4" style="background-color:#ff562f; color:white; border-right:3px solid white;">
+      <div class="d-flex align-items-center mb-3">
+        <h3 class="ml-3 font-weight-bold">ようこそ！</h3>
       </div>
-    <% end %>
+      <p class="text-justify">
+        「まねトク」は、毎日の生活における支出の把握や、お金に対する不安を少しでも軽くし、
+        より安心して暮らせる環境づくりをサポートする家計管理アプリです。
+        シンプルで直感的に操作でき、毎日続けやすい工夫を取り入れています。
+      </p>
+      <% if user_signed_in? %>
+        <div class="mt-4 text-center">
+          <%= link_to "はじめよう！", top_path, class: "btn btn-light btn-lg px-4" %>
+        </div>
+      <% else %>
+        <div class="d-flex justify-content-center mt-4">
+          <%= link_to "新規登録", new_user_registration_path, class: "btn btn-light btn-lg mx-2 px-4" %>
+          <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-light btn-lg mx-2 px-4" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-6 p-4" style="background-color:#ff562f; color:white;">
+      <h3 class="font-weight-bold mb-3">「家計簿 × 節約術 × SNS」</h3>
+      <p class="text-justify">
+        家計簿機能では、日々の支出を直感的に記録でき、自動計算でお金の流れを分かりやすく可視化します。
+        生活費の見直しや無駄遣いの発見に役立ちます。
+        さらに、ユーザー同士が節約術を投稿・共有できるコミュニティを用意。
+        他の人のアイデアを参考にしたり、自分の工夫をシェアしてフィードバックを受けたりと、
+        楽しく学べる環境を提供します。
+        「記録」と「学び」を組み合わせることで、無理なく続けられる家計管理を実現します。
+      </p>
+    </div>
   </div>
 </div>

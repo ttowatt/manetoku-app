@@ -14,8 +14,6 @@
   <body>
     <%= yield %>
 
-    <% unless controller_name == "homes" && action_name == "about" %>
-      <%= render "layouts/footer" %>
-    <% end %>
+    <%= render "layouts/footer" %>
   </body>
 </html>
