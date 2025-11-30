@@ -10,10 +10,10 @@
           </h3>
           <div id="follow_button">
             <% if current_user.following.include?(user) %>
-              <%= button_to "フォロー解除", user_follow_path(user),
+              <%= link_to "フォロー解除", user_follow_path(user),
                     method: :delete, remote: true, class: "btn btn-outline-danger btn-sm mx-2" %>
             <% else %>
-              <%= button_to "フォロー", user_follow_path(user),
+              <%= link_to "フォロー", user_follow_path(user),
                     method: :post, remote: true, class: "btn btn-primary btn-sm mx-2" %>
             <% end %>
           </div>

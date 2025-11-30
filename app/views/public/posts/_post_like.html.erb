@@ -2,19 +2,17 @@
   <% liked = post.post_likes.exists?(user: current_user) %>
 
   <% if liked %>
-    <%= button_to post_post_like_path(post, post.post_likes.find_by(user: current_user)),
+    <%= link_to post_post_likes_path(post),
                   method: :delete,
                   remote: true,
-                  class: 'post-like-button btn btn-link p-0',
-                  data: { post_id: post.id } do %>
+                  class: 'post-like-button btn btn-link p-0' do %>
       <i class="fa-solid fa-heart" style="color:red;"></i>
     <% end %>
   <% else %>
-    <%= button_to post_post_likes_path(post),
+    <%= link_to post_post_likes_path(post),
                   method: :post,
                   remote: true,
-                  class: 'post-like-button btn btn-link p-0',
-                  data: { post_id: post.id } do %>
+                  class: 'post-like-button btn btn-link p-0' do %>
       <i class="fa-regular fa-heart"></i>
     <% end %>
   <% end %>

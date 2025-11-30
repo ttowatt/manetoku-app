@@ -1,0 +1,1 @@
+document.getElementById("post-like-<%= @post.id %>").innerHTML = `<%= j(render 'public/posts/post_like', post: @post) %>`;

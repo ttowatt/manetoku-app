@@ -1,4 +1,0 @@
-const postLikeElement = document.getElementById("post-like-<%= @post.id %>");
-if (postLikeElement) {
-  postLikeElement.innerHTML = `<%= j(render 'public/posts/post_like', post: @post) %>`;
-}
