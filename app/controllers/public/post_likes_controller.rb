@@ -2,29 +2,11 @@ class Public::PostLikesController < ApplicationController
   before_action :set_post
 
   def create
-    like = @post.post_likes.new(user: current_user)
-    if like.save
-      respond_to do |format|
-        format.js   # create.js.erb が呼ばれる
-      end
-    else
-      respond_to do |format|
-        format.js { render js: "alert('いいねに失敗しました');" }
-      end
-    end
+    current_user.post_likes.find_or_create_by(post: @post)
   end
 
   def destroy
-    like = @post.post_likes.find_by(user: current_user)
-    if like&.destroy
-      respond_to do |format|
-        format.js   # destroy.js.erb が呼ばれる
-      end
-    else
-      respond_to do |format|
-        format.js { render js: "alert('操作に失敗しました');" }
-      end
-    end
+    current_user.post_likes.find_by(post: @post)&.destroy
   end
 
   private
