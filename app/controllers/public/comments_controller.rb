@@ -12,6 +12,11 @@ class Public::CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
+    @comments = @post.comments
+                 .order(created_at: :desc)
+                 .page(params[:page])
+                 .per(50)
+                 
     if @comment.save
       redirect_to post_comments_path(@post), notice: "コメントを投稿しました。"
     else

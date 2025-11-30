@@ -1,0 +1,3 @@
+document.getElementById("comment-like-<%= @comment.id %>").innerHTML = `
+<%= j(render 'public/comments/comment_like', comment: @comment) %>
+`;

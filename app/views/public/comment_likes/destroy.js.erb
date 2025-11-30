@@ -2,3 +2,6 @@ const commentLikeElement = document.getElementById("comment-like-<%= @comment.id
 if (commentLikeElement) {
   commentLikeElement.innerHTML = `<%= j(render 'public/comments/comment_like', comment: @comment) %>`;
 }
+document.getElementById("comment-like-<%= @comment.id %>").innerHTML = `
+  <%= j(render partial: 'public/comments/comment_like', locals: { comment: @comment }) %>
+`;
